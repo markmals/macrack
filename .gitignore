@@ -14,3 +14,9 @@ wheels/
 
 # Ruff
 .ruff_cache
+
+.pytest_cache/
+exports/
+
+# Rack Pro originals and derivatives are private-use geometry.
+assets/

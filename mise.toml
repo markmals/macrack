@@ -11,8 +11,12 @@ _.python.venv = { path = ".venv", create = true }
 
 [tasks.test]
 description = "Run tests"
-run = "python -m pytest tests/"
+run = "uv run pytest tests/"
 
 [tasks.lint]
 description = "Lint the code"
-run = "ruff check ."
+run = "uv run ruff check ."
+
+[tasks.cad]
+description = "Build and validate candidate CAD exports"
+run = "uv run macrack build --config config/reference.toml"

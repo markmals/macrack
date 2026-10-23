@@ -1,7 +1,7 @@
 [project]
 name = "macrack"
 version = "0.1.0"
-description = "Add your description here"
+description = "Private-use parametric Rack Pro storage carriers and measured CAD checks"
 readme = "README.md"
 authors = [
     { name = "Mark Malstrom", email = "mark@malstrom.me" }
@@ -9,12 +9,29 @@ authors = [
 requires-python = ">=3.13"
 dependencies = [
     "build123d>=0.13.0",
-    "ocp-vscode>=4.2.0",
+    "trimesh>=5.1.1",
 ]
 
 [project.scripts]
-macrack = "macrack:main"
+macrack = "macrack.cli:main"
+
+[project.optional-dependencies]
+viewer = [
+    "ocp-vscode>=4.2.0",
+]
 
 [build-system]
 requires = ["uv_build>=0.13.5,<0.14.0"]
 build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "ruff>=0.17.2",
+]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]

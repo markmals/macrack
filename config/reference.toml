@@ -1,0 +1,36 @@
+[design]
+floor = 3.0
+side_wall = 3.0
+clearance = 1.0
+device_front = 4.0
+stand_off = 3.0
+top_clearance = 4.0
+hdd_feet = 8.0
+vent_width = 8.0
+vent_pitch = 16.0
+strap_width = 5.0
+strap_length = 12.0
+nvme_units = 1
+sata_units = 1
+hdd_units = 2
+
+[sata]
+width = 69.85
+depth = 100.0
+height = 6.8
+source = "Samsung 870 QVO datasheet; exact owner model still unconfirmed"
+status = "provisional"
+
+[hdd]
+width = 101.854
+depth = 147.0
+height = 26.11
+source = "Seagate ST12000NT001 manual 206815300 Rev B; screening envelope only, NOT selected hardware"
+status = "provisional"
+
+[mac]
+width = 127.0
+depth = 127.0
+height = 50.0
+source = "https://support.apple.com/en-us/121555; M4 reference only, generation not selected"
+status = "provisional"
