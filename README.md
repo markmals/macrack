@@ -47,6 +47,22 @@ PYTHONPATH=/Applications/FreeCAD.app/Contents/Resources/lib /Applications/FreeCA
 
 The preview requires a graphical macOS session. Open `exports/assembly-preview.FCStd` for interactive inspection. The STEP assembly includes non-printable references; send individual files from `parts/` or `coupons/` to the slicer, never the full assembly.
 
+Launch the interactive assembly:
+
+```sh
+open -a FreeCAD exports/assembly-preview.FCStd
+```
+
+Use the navigation cube to change view, scroll to zoom, and select a model-tree item then press Space to hide/show it. Hide the `keepout` and `reservation` groups to inspect only the carriers. This document is an exported snapshot, not an automatically updating Python model: rebuild and regenerate the preview document after parameter changes, then reopen it.
+
+The same renderer accepts an individual part STEP. For example:
+
+```sh
+PYTHONPATH=/Applications/FreeCAD.app/Contents/Resources/lib /Applications/FreeCAD.app/Contents/Resources/bin/python scripts/freecad_preview.py exports/parts/sata_ssd_carrier.step exports/previews/sata-ssd-carrier.png
+```
+
+PNGs use a 1200 × 1000 isometric view. The renderer refits the camera after window activation so individual trays remain fully visible.
+
 ## What is implemented
 
 The baseline allocation is HDD 2U + SATA 1U + dual NVMe 1U + empty cooling 1U + Mac bay 3U = 8U, or 200 mm of module pitch. Ground skids add 8 mm below the module stack. This is a planning allocation, not a measured complete enclosure size: the frame, Mac cradle, connectors and power hardware are missing.

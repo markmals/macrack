@@ -33,6 +33,7 @@ def render_preview(step: Path, image: Path, document: Path | None) -> None:
     application.processEvents()
     # Window activation can reset the camera after the first event delivery.
     view.setCameraOrientation(orientation)
+    view.fitAll()
     view.redraw()
     image.parent.mkdir(parents=True, exist_ok=True)
     view.saveImage(str(image.resolve()), 1200, 1000, "Current")
