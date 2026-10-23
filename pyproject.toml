@@ -1,0 +1,20 @@
+[project]
+name = "macrack"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Mark Malstrom", email = "mark@malstrom.me" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "build123d>=0.13.0",
+    "ocp-vscode>=4.2.0",
+]
+
+[project.scripts]
+macrack = "macrack:main"
+
+[build-system]
+requires = ["uv_build>=0.13.5,<0.14.0"]
+build-backend = "uv_build"

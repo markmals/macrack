@@ -1,0 +1,18 @@
+[tools]
+uv = "latest"
+ruff = "latest"
+
+[settings]
+idiomatic_version_file_enable_tools = ["python"]
+python.uv_venv_auto = "create|source"
+
+[env]
+_.python.venv = { path = ".venv", create = true }
+
+[tasks.test]
+description = "Run tests"
+run = "python -m pytest tests/"
+
+[tasks.lint]
+description = "Lint the code"
+run = "ruff check ."

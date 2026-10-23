@@ -1,0 +1,17 @@
+.DS_Store
+.env
+/node_modules/
+
+# Remix
+/build/
+/dist/
+
+# Verification screenshots
+/.build/
+
+# Cloudflare
+.wrangler
+.dev.vars
+
+# 1Password secret reference for the one-time app-password bootstrap
+/.env.atproto-bootstrap.op
