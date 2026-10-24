@@ -12,7 +12,7 @@ All lengths are millimetres. Inch conversions use 25.4 mm/in.
 | `vendor-image` | Published by the vendor, but only as a dimensioned marketing image, not a drawing. |
 | manual | Stated in the manufacturer's own support manual or assembly guide that is linked here. |
 | vendor page | Stated in the manufacturer's own product or support page, but not as a dimensioned figure. |
-| `measured-local` | Measured by this repo from `assets/rack-pro/*.step` with build123d. See `docs/dimensions.md`. |
+| `measured-local` | Measured by this repo from `assets/rack-pro/*.step` with build123d and reproduced with caddy. See `docs/dimensions.md`. |
 | `provisional` | A user-configurable screening number chosen so the model can be exercised. Not a product spec. |
 | `unknown` | Not published, not measured, not decided. Stays unknown until someone supplies it. |
 

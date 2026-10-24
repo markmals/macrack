@@ -1,0 +1,29 @@
+{
+    "name": "macrack",
+    "version": "0.1.0",
+    "private": true,
+    "description": "Private-use parametric Rack Pro storage carriers and measured CAD checks",
+    "author": "Mark Malstrom <mark@malstrom.me>",
+    "type": "module",
+    "dependencies": {
+        "@roonieone/caddy": "1.0.0-alpha.0",
+        "@roonieone/occt-native": "1.0.0-alpha.0",
+        "fflate": "^0.8.3",
+        "manifold-3d": "^3.5.4",
+        "saxes": "^6.0.0",
+        "smol-toml": "^1.9.1"
+    },
+    "devDependencies": {
+        "@types/node": "^25.5.0",
+        "eslint-plugin-perfectionist": "^5.8.0",
+        "eslint-plugin-prefer-let": "^4.2.2",
+        "oxlint-tsgolint": "^0.22.1",
+        "typescript": "^7.0.2",
+        "vite": "npm:@voidzero-dev/vite-plus-core@^1.4.0",
+        "vite-plus": "^1.4.0"
+    },
+    "engines": {
+        "node": ">=24"
+    },
+    "packageManager": "pnpm@12.15.0"
+}

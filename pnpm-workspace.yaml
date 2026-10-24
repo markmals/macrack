@@ -1,0 +1,5 @@
+minimumReleaseAgeExclude:
+    - "@roonieone/caddy@1.0.0-alpha.0"
+    - "@roonieone/occt-native-darwin-arm64@1.0.0-alpha.0"
+    - "@roonieone/occt-native-darwin-x64@1.0.0-alpha.0"
+    - "@roonieone/occt-native@1.0.0-alpha.0"

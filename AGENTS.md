@@ -8,7 +8,7 @@ Build a compact, modular, 3D-printable rack enclosure for a future Apple Silicon
 
 The primary output is **maintainable parametric CAD source plus printable, inspectable models**, not just screenshots or a concept render. The final result should be physically plausible, small, serviceable, and expandable. Aim for an overall enclosure smaller than the owner's current Teenage Engineering Computer-1 chassis, if the mechanical and thermal requirements permit; **do not assume a particular rack height is already sufficient**.
 
-The owner has **`uv`, FreeCAD, and Bambu Studio installed on macOS**. Set up other project-local tools as needed. Prefer `build123d` (Python/OpenCascade) as the source of truth, FreeCAD for STEP inspection, and Bambu Studio for print validation. An OCP CAD Viewer extension can be offered if VS Code is already available; do not make it a hard dependency.
+The owner has **mise (Node and pnpm), FreeCAD, and Bambu Studio installed on macOS**. Set up other project-local tools as needed. Prefer [caddy](https://github.com/markmals/caddy) (`@roonieone/caddy`: build123d's algebraic API in TypeScript on native OpenCascade) as the source of truth, FreeCAD for STEP inspection, and Bambu Studio for print validation.
 
 ## Hardware to accommodate
 
@@ -51,9 +51,9 @@ The facts above quote the maker's public description. This checkout now contains
 ## CAD implementation
 
 - Use **millimeters** for all geometry and technical drawings.
-- Create a `uv` Python project (`uv init` if needed, then `uv add build123d`), and pin dependencies through `uv.lock`.
-- Prefer **build123d** scripts for deterministic geometry. Use FreeCAD to verify STEP imports, placement, dimensions, and exported parts. Avoid relying exclusively on opaque edits in a binary CAD file.
-- Import downloaded original STEP files with `build123d.import_step()`; use the exact rail-slide/mating geometry from those files. Do not approximate the dovetail/slide profile from the 146mm description.
+- Keep the Node/TypeScript project managed by mise and pnpm, with dependencies pinned through `pnpm-lock.yaml`. Follow caddy's TypeScript conventions (`.ts` imports run directly by Node, `let` bindings, trailing options objects, strict types).
+- Prefer **caddy** scripts for deterministic geometry. Use FreeCAD to verify STEP imports, placement, dimensions, and exported parts. Avoid relying exclusively on opaque edits in a binary CAD file. FreeCAD's API is Python-only: keep the scripts under `scripts/freecad/` thin adapters that drive FreeCAD and report raw facts, with every check and file decision in TypeScript.
+- Import downloaded original STEP files with caddy's `importCAD()`; use the exact rail-slide/mating geometry from those files. Do not approximate the dovetail/slide profile from the 146mm description.
 - Use named parameters for geometry, module height, wall thickness, clearance, fastener placement, drive dimensions, bridge dimensions, and cable bend/connector envelopes. Record whether every parameter is **manufacturer-confirmed**, **measured from CAD**, **physical measurement**, or **provisional**.
 - Use separate source modules/classes for shared rack interfaces, device envelopes, individual inserts, and full assembly. The assembly should include non-printable keep-out solids for the Mac, drives, plugs, power adapters and cable paths.
 - Export **one STEP and one STL per printable part**. STEP is the editable interchange representation; STL is for slicing. Add a full assembly STEP where feasible. If a 3MF is created, make it a Bambu Studio project with an explicit printer/material profile rather than presenting it as a universal print file.
@@ -86,25 +86,24 @@ The facts above quote the maker's public description. This checkout now contains
 ## Expected repository structure
 
 ```text
-frankenmac-rack/
+macrack/
 ├── AGENTS.md                   # This file
 ├── README.md                   # Overview, build and inspect commands
-├── pyproject.toml
-├── uv.lock
-├── sources/                    # Original authorized STEP/3MF downloads (gitignored if license requires)
-├── references/                 # Datasheets, sources, dimensional notes
-├── src/frankenmac/
-│   ├── parameters.py           # Confirmed/provisional dimensions
-│   ├── rack_interface.py       # Original slide geometry adapter
-│   ├── device_envelopes.py     # Non-printable keep-outs
-│   ├── nvme_insert.py
-│   ├── sata_ssd_insert.py
-│   ├── hdd_insert.py
-│   ├── rack_frame.py
-│   └── assembly.py
-├── scripts/                     # Regenerate/export/check commands
-├── tests/                       # Parametric CAD assertions
-├── exports/                     # Generated STEP/STL/3MF (normally gitignored)
+├── package.json / pnpm-lock.yaml / mise.toml
+├── assets/rack-pro/            # Original authorized STEP/3MF downloads (3MF gitignored)
+├── config/                     # Parameter sets (TOML)
+├── src/
+│   ├── cli.ts                  # inspect, build, rack and FreeCAD commands
+│   ├── parameters.ts           # Confirmed/provisional dimensions
+│   ├── carriers/               # Original slide interface and custom inserts
+│   ├── mesh/                   # Triangle meshes, transforms, STL
+│   ├── source/                 # 3MF reader, measured frame and original modules
+│   ├── rack/                   # Full-rack assembly, collision checks, outputs
+│   ├── study/                  # Carrier-only study, keep-outs, exports
+│   └── freecad/                # FreeCAD orchestration
+├── scripts/freecad/            # Thin FreeCAD-hosted Python adapters
+├── tests/                      # Parametric CAD assertions (Vitest)
+├── exports/                    # Generated STEP/STL/FCStd/PNG (gitignored)
 └── docs/
     ├── dimensions.md           # Measurement source and confidence log
     ├── hardware-bom.md         # Components/fasteners/adapters; TBD items explicit
@@ -117,7 +116,7 @@ Adapt the layout if a simpler repository structure is more maintainable. All gen
 ## Agent operating rules
 
 - **Act autonomously on software setup, repository scaffolding, investigation, geometry generation, test scripts, and export/validation.** Don't stop for a question when a useful provisional design can be produced with explicitly labeled assumptions.
-- First inspect what CAD source files and device datasheets actually exist locally. If MakerWorld source templates are not available, create the build123d project, device parameter model, and provisional parts, but leave the rack mating geometry blocked. Do **not** improvise the critical rail fit or falsely claim final manufacturability.
+- First inspect what CAD source files and device datasheets actually exist locally. If MakerWorld source templates are not available, create the caddy project, device parameter model, and provisional parts, but leave the rack mating geometry blocked. Do **not** improvise the critical rail fit or falsely claim final manufacturability.
 - Treat purchasing decisions as unresolved: don't assume a specific 12TB HDD, NVMe bridge, SATA bridge, or print service has been chosen. Describe any required selections and their relevant size/power tradeoffs in `docs/hardware-bom.md`.
 - Don't access, modify, erase, or experiment with Tangerine's storage devices. This project is **mechanical CAD only**, with supporting electronics packaging.
 - Respect the Rack Pro model's private-use licensing. Link to the author's model rather than committing downloaded proprietary-source geometry to a public repository.
@@ -126,10 +125,9 @@ Adapt the layout if a simpler repository structure is more maintainable. All gen
 ## Reference links
 
 - Original Rack Pro design/download: https://makerworld.com/en/models/896157-mac-mini-rack-pro-set-for-m4-mac-mini-add-ons#profileId-854246
-- build123d documentation: https://build123d.readthedocs.io/
-- build123d STEP/STL import-export: https://build123d.readthedocs.io/en/latest/import_export.html
+- caddy (TypeScript CAD on OpenCascade): https://github.com/markmals/caddy
+- build123d documentation, the API caddy ports: https://build123d.readthedocs.io/
 - FreeCAD: https://www.freecad.org/
 - Bambu Studio: https://github.com/bambulab/BambuStudio
 - Bambu Studio command-line guide: https://github.com/bambulab/BambuStudio/wiki/Command-Line-Usage
-- OCP CAD Viewer (optional): https://marketplace.visualstudio.com/items?itemName=bernhard-42.ocp-cad-viewer
 - Apple Mac mini 2024 dimensions for original cradle reference only: https://support.apple.com/en-us/121555

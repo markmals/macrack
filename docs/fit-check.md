@@ -18,7 +18,7 @@ The complete modeled envelope, including handles, is 172.6×178.8×262 mm. It ex
 
 ## Collision coverage
 
-The full-rack checker uses float64 Manifold intersections on original source meshes and native CAD tessellated at 0.02 mm linear tolerance. Positive-volume overlaps above 0.01 mm³ between printed parts, or between printed parts and the airflow reservation, fail export. Face contact is permitted. Every modeled mesh must be watertight, consistently wound and positive-volume; placement matrices must be proper rigid transforms.
+The full-rack checker uses Manifold intersections on original source meshes and native CAD tessellated at 0.02 mm linear tolerance. Manifold's JavaScript binding accepts float32 vertices, so each part enters in its local coordinates (the 3MF source vertices are float32 already) and is placed by its exact transform in double precision. Positive-volume overlaps above 0.01 mm³ between printed parts, or between printed parts and the airflow reservation, fail export. Face contact is permitted. Every modeled mesh must be watertight, consistently wound and positive-volume; placement matrices must be proper rigid transforms.
 
 Conservative reference-envelope overlaps remain a separate, explicit result. They are checked against printed parts, other references and the airflow reservation, not silently excluded. The current OWC comparison has one: the 127×127×50 square Mac box overlaps the rounded cradle by approximately 23,832 mm³. The actual Mac corner profile is not supplied, so that overlap cannot be cleared or called a physical collision. No fabricated corner radius is used to make the check pass.
 
@@ -46,10 +46,11 @@ Keep the complete 25.4 mm cooling band beneath the Mac empty. Do not place trays
 
 ## Executed software checks
 
-- The real CLI generated both the OWC comparison and generic empty-NVMe assembly, and rejected the short frame with a six-unit-versus-eight-unit diagnostic.
+- The real TypeScript CLI generated both the OWC comparison and generic empty-NVMe assembly, and rejected the short frame with a six-unit-versus-eight-unit diagnostic.
+- Against the former Python/build123d implementation, both assemblies and the carrier study reproduce every frame datum, source inventory, module measurement, placement, component volume, triangle count, bound and interference result within 1e-9 relative. The Mac reference overlap moved by 1.2e-5 mm³ because Manifold now receives float32 local vertices. Only STEP byte sizes differ.
 - The OWC assembly contains 21 component solids. FreeCAD independently validated 25 input/converted/full-assembly shapes, including per-source faceted STEP round trips. Full-assembly bounds, volume and solid count match the generated scene within the exporter tolerances. Reopening the saved FCStd also verified all 21 component shapes and placement matrices.
 - Bambu Studio `--info` imported all ten exported STL files in the OWC output: two custom candidates and eight source files. Each was manifold and one part. The HDD candidate measures 166.8×155×58.6; the SATA candidate 166.8×108×25. Original source files retain local axes and are not arranged print jobs.
-- All 50 regression tests passed, including source parsing, measured slots, rigid placement, reference/airflow collisions, HDD withdrawal, short-frame rejection, symlink/file preservation, output-directory obstruction and failed-render preservation. Ruff passed.
+- All 51 Vitest regression tests passed, including source parsing, measured slots, rigid placement, reference/airflow collisions, HDD withdrawal, short-frame rejection, symlink/file preservation, output-directory obstruction and failed-render preservation. `vp check` (format, lint, type-check) passed.
 - FreeCAD generated front, rear and cutaway PNGs plus the interactive FCStd document. Camera animation is disabled and saved orientations are checked, so the PNGs do not capture intermediate view transitions. The installed GUI reports a missing optional 3Dconnexion input library; STEP conversion and rendering still succeed.
 - Report-only mechanical and export audits were completed. Ownership/provenance/publication findings were corrected before final export.
 

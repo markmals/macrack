@@ -1,18 +1,19 @@
 # Frankenmac Rack
 
-Private-use parametric CAD derived from Jerrod H's [Mac mini Rack Pro](https://makerworld.com/en/models/896157-mac-mini-rack-pro-set-for-m4-mac-mini-add-ons#profileId-854246). build123d generates the custom storage carriers while retaining the original STEP-template interfaces. The supplied `assets/rack-pro/rack-pro.3mf` provides the actual frame, Mac cradle, lid, handles and optional OWC shelf.
+Private-use parametric CAD derived from Jerrod H's [Mac mini Rack Pro](https://makerworld.com/en/models/896157-mac-mini-rack-pro-set-for-m4-mac-mini-add-ons#profileId-854246). TypeScript on Node generates the custom storage carriers with [caddy](https://github.com/markmals/caddy) (`@roonieone/caddy`, build123d's API on native OpenCascade) while retaining the original STEP-template interfaces. The supplied `assets/rack-pro/rack-pro.3mf` provides the actual frame, Mac cradle, lid, handles and optional OWC shelf.
 
 The assembled comparison model measures approximately **172.6 × 178.8 × 262 mm**, including the Mac handles but excluding unselected bridges, cables and power supplies. It is a CAD candidate, not a validated hardware installation or print job.
 
 ## Build the full rack
 
-Run from the repository root with Python 3.13 or newer and `uv`:
+Run from the repository root with [mise](https://mise.jdx.dev) (it provides Node and pnpm):
 
 ```sh
-uv sync --locked
-uv run macrack inspect
-uv run macrack rack --config config/owc-reference.toml --nvme-mount owc-reference
-PYTHONPATH=/Applications/FreeCAD.app/Contents/Resources/lib /Applications/FreeCAD.app/Contents/Resources/bin/python scripts/freecad_rack.py exports/full-rack/rack.json
+mise install
+mise run install
+node src/cli.ts inspect
+node src/cli.ts rack --config config/owc-reference.toml --nvme-mount owc-reference
+node src/cli.ts freecad-rack exports/full-rack/rack.json
 open -a FreeCAD exports/full-rack/rack.FCStd
 ```
 
@@ -21,16 +22,16 @@ The OWC configuration is an explicit comparison using the manufacturer's dimensi
 For the alternative empty custom NVMe carrier, without inventing enclosure dimensions:
 
 ```sh
-uv run macrack rack --output exports/generic-rack
+node src/cli.ts rack --output exports/generic-rack
 ```
 
-Run the same FreeCAD script against that directory's `rack.json` to produce its assembly and previews. `--profile PATH` selects an authorized Bambu source project; `--sources PATH` selects the STEP-template directory. `--rail-size short` is available, but the current eight-unit stack is rejected because the supplied short frame has only six usable full units.
+Run `freecad-rack` against that directory's `rack.json` to produce its assembly and previews. `--profile PATH` selects an authorized Bambu source project; `--sources PATH` selects the STEP-template directory. `--rail-size short` is available, but the current eight-unit stack is rejected because the supplied short frame has only six usable full units. `node src/cli.ts --help` lists every command.
 
 ## View and inspect
 
 Open `exports/full-rack/rack.FCStd` in FreeCAD. Use the navigation cube to orbit, scroll to zoom, and select a tree item then press Space to hide/show it. Press V, then F to fit the view. The groups separate original frame parts, original modules, custom candidates, reference bodies and the airflow reservation.
 
-This is an interactive snapshot, not automatic Python hot reload. Change the TOML, rerun the rack command and FreeCAD exporter, then reopen the document. The Python source remains authoritative for custom geometry.
+This is an interactive snapshot, not hot reload. Change the TOML, rerun the rack and `freecad-rack` commands, then reopen the document. The TypeScript source remains authoritative for custom geometry.
 
 | Artifact under `exports/full-rack/` | Purpose |
 | --- | --- |
@@ -71,8 +72,8 @@ Increase a module's configured U count if required; supported heights use the or
 The separate carrier-only command remains useful for coupons and isolated design studies:
 
 ```sh
-uv run macrack build --config config/reference.toml
-uv run python scripts/freecad_inspect.py exports/assembly.step exports/parts/*.step exports/coupons/*.step --report exports/freecad-report.json --document exports/inspect.FCStd
+node src/cli.ts build --config config/reference.toml
+node src/cli.ts freecad-inspect exports/assembly.step exports/parts/*.step exports/coupons/*.step --report exports/freecad-report.json --document exports/inspect.FCStd
 ```
 
 That study uses nominal 25 mm module-height spacing, no original frame/cradle, and default 8 mm ground skids. It is not the assembled rack. Its output is `exports/parts/`, `exports/coupons/`, `exports/assembly.step` and `exports/manifest.json`; use the full-rack carrier files for the base-supported HDD variant. All STEP/STL part files use local millimeter coordinates. Translate their lowest surface to the slicer bed without scaling.
@@ -80,31 +81,31 @@ That study uses nominal 25 mm module-height spacing, no original frame/cradle, a
 Individual STEP previews remain available:
 
 ```sh
-PYTHONPATH=/Applications/FreeCAD.app/Contents/Resources/lib /Applications/FreeCAD.app/Contents/Resources/bin/python scripts/freecad_preview.py exports/full-rack/candidates/sata_ssd_carrier.step exports/previews/sata-ssd-carrier.png
+node src/cli.ts freecad-preview exports/full-rack/candidates/sata_ssd_carrier.step exports/previews/sata-ssd-carrier.png
 ```
 
 ## Checks and output ownership
 
 ```sh
-uv run pytest
-uv run ruff check .
+mise run test
+mise run check
 /Applications/BambuStudio.app/Contents/MacOS/BambuStudio --outputdir exports/full-rack --info exports/full-rack/candidates/*.stl exports/full-rack/source/*.stl
 ```
 
-The 3MF-dependent regressions require the private source file. CAD checks and Bambu `--info` do not establish physical fit or validate a sliced toolpath. FreeCAD rendering requires a graphical macOS session.
+`mise run check` formats, lints and type-checks with Vite+. The 3MF-dependent regressions require the private source file. CAD checks and Bambu `--info` do not establish physical fit or validate a sliced toolpath. FreeCAD commands use FreeCAD's bundled Python (`/Applications/FreeCAD.app`, or set `MACRACK_FREECAD_PYTHON`) and rendering requires a graphical macOS session.
 
 Use dedicated output directories and do not run concurrent builds into one directory. A new rack build invalidates its previous manifest and removes only unchanged files it owns, including derived FreeCAD outputs. Modified files, symlinks and unowned target paths are refused. Native geometry and FreeCAD outputs are staged before publication; a failed FreeCAD render preserves the previous completed outputs. Only consume files matching a successful current manifest. A valid manifest is still not permission to print without the physical and slicer gates in [print notes](docs/print-notes.md).
 
 ## Code map
 
-- `parameters.py`, `rack_interface.py`, `*_insert.py`: configurable device/design values and exact STEP-derived carriers.
-- `source_profile.py`: Bambu component-mesh import without print-bed or scattered assembly transforms.
-- `rack_frame.py`, `source_modules.py`: measured original geometry and rigid assembly placements.
-- `full_assembly.py`, `rack_scene.py`, `rack_output.py`: layout, conservative references, mesh intersection checks and reproducible exports.
-- `assembly.py`, `validation.py`, `export.py`: isolated carrier studies and exact-solid/export checks.
-- `scripts/freecad_rack.py`: full assembly conversion, independent inspection, interactive document and PNGs.
+- `src/parameters.ts`, `src/carriers/`: configurable device/design values, the exact STEP-derived slide interface and the NVMe/SATA/HDD carriers.
+- `src/source/`: Bambu 3MF component-mesh import without print-bed or scattered assembly transforms, measured original frame and rigid module placements.
+- `src/rack/`: full-rack layout, conservative references, Manifold mesh intersection checks and reproducible exports.
+- `src/study/`: isolated carrier studies with exact-solid OpenCascade checks and STEP/STL exports.
+- `src/mesh/`: indexed triangle meshes, affine placements and binary STL.
+- `src/freecad/` with `scripts/freecad/*.py`: FreeCAD conversion, independent inspection, interactive document and PNGs. FreeCAD's API is Python-only, so those scripts only drive FreeCAD and report raw facts; every check and file decision is TypeScript.
 
-The optional VS Code viewer extra is not required. See [dimensions](docs/dimensions.md) for measured datums and [fit checks](docs/fit-check.md) for the remaining thermal, structural, service-access and stability gates.
+See [dimensions](docs/dimensions.md) for measured datums and [fit checks](docs/fit-check.md) for the remaining thermal, structural, service-access and stability gates.
 
 Keep `assets/` and `exports/` private. Original STEP files were tracked in the initial repository; ignore rules do not remove them from Git history. Do not publish this repository or original/derived geometry without the author's permission. No source files are removed.
 

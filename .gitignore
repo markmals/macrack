@@ -1,21 +1,12 @@
-# Python-generated files
-__pycache__/
-*.py[oc]
-build/
-dist/
-wheels/
-*.egg-info
+# Node
+node_modules/
 
-# Virtual environments
-.venv
+# FreeCAD worker bytecode
+__pycache__/
 
 # macOS
 .DS_Store
 
-# Ruff
-.ruff_cache
-
-.pytest_cache/
 exports/
 
 # Rack Pro originals and derivatives are private-use geometry.

@@ -64,7 +64,7 @@ Module-local coordinates use that frame. Full-rack placement adds the measured m
 
 ## Template measurements
 
-Measured with `build123d.import_step` followed by `rotate(Axis.X, 90)`, reading bounding boxes, face areas, face types, and edge lengths. Each file imports as exactly one solid.
+Measured with build123d's `import_step` followed by `rotate(Axis.X, 90)`, reading bounding boxes, face areas, face types, and edge lengths. Each file imports as exactly one solid. The TypeScript tooling reproduces the bounding boxes, volumes and pocket faces with caddy's `importCAD` and the same rotation.
 
 | File | Solids | Width X | Depth Y | Height Z | Volume (mm3) |
 |---|---:|---:|---:|---:|---:|
@@ -163,4 +163,4 @@ The separate carrier-only study totals 200 mm of nominal module heights plus def
 
 ## Reproducing the measurements
 
-`uv run macrack inspect` reports template dimensions/hashes and the selected frame's measured datums. `uv run macrack rack` records source-module features, placements and intersection results in `rack.json`. Frame measurements use face planes and pocket ray probes; original mesh coordinates are retained. Native STEP templates are normalized with `rotate(Axis.X, 90)` and checked by Boolean subtraction. Source files and geometry derived from them remain private; see `docs/hardware-bom.md`.
+`node src/cli.ts inspect` reports template dimensions/hashes and the selected frame's measured datums. `node src/cli.ts rack` records source-module features, placements and intersection results in `rack.json`. Frame measurements use face planes and pocket ray probes; original mesh coordinates are retained. Native STEP templates are normalized with `rotate(Axis.X, 90)` and checked by Boolean subtraction. Source files and geometry derived from them remain private; see `docs/hardware-bom.md`.

@@ -1,22 +1,26 @@
 [tools]
-uv = "latest"
-ruff = "latest"
-
-[settings]
-idiomatic_version_file_enable_tools = ["python"]
-python.uv_venv_auto = "create|source"
+node = "26"
+pnpm = "12.15.0"
 
 [env]
-_.python.venv = { path = ".venv", create = true }
+_.path = ["{{config_root}}/node_modules/.bin"]
+
+[tasks.install]
+description = "Install the JavaScript dependencies"
+run = "pnpm install"
+
+[tasks.check]
+description = "Format-check, lint and type-check TypeScript and Markdown"
+run = "vp check"
+
+[tasks.fmt]
+description = "Format TypeScript and Markdown in place"
+run = "vp fmt"
 
 [tasks.test]
-description = "Run tests"
-run = "uv run pytest tests/"
-
-[tasks.lint]
-description = "Lint the code"
-run = "uv run ruff check ."
+description = "Run the Vitest suites"
+run = "vp test run"
 
 [tasks.cad]
 description = "Build and validate candidate CAD exports"
-run = "uv run macrack build --config config/reference.toml"
+run = "node src/cli.ts build --config config/reference.toml"
