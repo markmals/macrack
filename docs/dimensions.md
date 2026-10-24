@@ -24,17 +24,17 @@ The main profile has 14 plates. These are the relevant original parts:
 
 ## Measured frame
 
-| Feature | Full rails | Short rails |
-| --- | ---: | ---: |
-| Original rail length | 254.0 | 177.8 |
-| Assembled frame width | 172.6 | 172.6 |
-| Assembled frame depth | 175.0 | 175.0 |
-| Assembled frame height | 262.0 | 185.8 |
-| Groove positions | 10 | 7 |
-| Usable full-height 1U positions | 9 | 6 |
-| Lowest groove floor above ground | 12.6 | 12.6 |
-| Groove pitch | 25.4 | 25.4 |
-| Usable ceiling under top skirt | 252.0 | 175.8 |
+| Feature                          | Full rails | Short rails |
+| -------------------------------- | ---------: | ----------: |
+| Original rail length             |      254.0 |       177.8 |
+| Assembled frame width            |      172.6 |       172.6 |
+| Assembled frame depth            |      175.0 |       175.0 |
+| Assembled frame height           |      262.0 |       185.8 |
+| Groove positions                 |         10 |           7 |
+| Usable full-height 1U positions  |          9 |           6 |
+| Lowest groove floor above ground |       12.6 |        12.6 |
+| Groove pitch                     |       25.4 |        25.4 |
+| Usable ceiling under top skirt   |      252.0 |       175.8 |
 
 The last groove is not a full usable bay: a 25 mm module there would intersect the top skirt. The central top-plate underside is 5 mm above that skirt, but the skirt overlaps the full module width. Counting grooves alone overstates usable capacity.
 
@@ -55,7 +55,7 @@ The source STEP files arrive with width on X, height on Y, and depth running neg
 This project normalises each imported template with a single `rotate(Axis.X, 90)`, which gives:
 
 | Axis | Meaning after normalisation | Range |
-|---|---|---|
+| --- | --- | --- |
 | X | Width, centred on the module | -83.4 to +83.4 |
 | Y | Depth, increasing rearward | -3 at the front flange face, 0 at the body front, +100 at the rear |
 | Z | Height above the module floor | 0 to 25 / 50 / 75 |
@@ -66,18 +66,18 @@ Module-local coordinates use that frame. Full-rack placement adds the measured m
 
 Measured with build123d's `import_step` followed by `rotate(Axis.X, 90)`, reading bounding boxes, face areas, face types, and edge lengths. Each file imports as exactly one solid. The TypeScript tooling reproduces the bounding boxes, volumes and pocket faces with caddy's `importCAD` and the same rotation.
 
-| File | Solids | Width X | Depth Y | Height Z | Volume (mm3) |
-|---|---:|---:|---:|---:|---:|
-| `1U Template.step` | 1 | 166.8 | 103.0 | 25.0 | 383867.7 |
-| `2U Template.step` | 1 | 166.8 | 103.0 | 50.0 | 761282.4 |
-| `3U Template.step` | 1 | 166.8 | 103.0 | 75.0 | 1138792.4 |
+| File               | Solids | Width X | Depth Y | Height Z | Volume (mm3) |
+| ------------------ | -----: | ------: | ------: | -------: | -----------: |
+| `1U Template.step` |      1 |   166.8 |   103.0 |     25.0 |     383867.7 |
+| `2U Template.step` |      1 |   166.8 |   103.0 |     50.0 |     761282.4 |
+| `3U Template.step` |      1 |   166.8 |   103.0 |     75.0 |    1138792.4 |
 
 The templates are solid stock, not shells. For the 1U file, body 146 x 100 x 25 plus two slide strips 4 x 100 x 8 plus a flange 166.8 x 3 x 25 comes to about 383910 before chamfer removal, which matches the measured 383867.7. The author's instruction is to subtract device geometry from these blocks, so a carrier is cut out of the template rather than built up against it.
 
 ### Profile features, all three templates
 
 | Feature | Measurement |
-|---|---|
+| --- | --- |
 | Front flange | Y -3 to 0, full width 166.8, full module height |
 | Body side walls | planar faces at X = +/-73, so 146.0 between them |
 | Slide strips | X 73 to 77 on each side, so 154.0 across the outside, Y 0 to 100, Z 0 to 8 |
@@ -96,7 +96,7 @@ Those are R2 quarter-round corner fillets on the flange, 3 deep through the flan
 ### Lateral blind pockets, 2U and 3U only
 
 | Property | Value |
-|---|---|
+| --- | --- |
 | Diameter | 3.8 |
 | Depth | 4.2, measured inward from the slide outer face |
 | Axis | along X |
@@ -114,7 +114,7 @@ The 1U STEP template has no pocket, so its custom carriers have no screw retenti
 Full sourcing, links and caveats are in `docs/hardware-bom.md`. Summary of what the CAD consumes:
 
 | Envelope | Value (X x Y x Z as used) | Status |
-|---|---|---|
+| --- | --- | --- |
 | Mac mini | 127.0 x 127.0 x 50.0 | manufacturer figure for Mac mini (2024), machine not purchased |
 | 2.5-inch SATA SSD | 69.85 x 100.0 x 6.8 | manufacturer figure, Samsung 870 QVO datasheet; owner's exact submodel still to be read off the drive |
 | 3.5-inch HDD | 101.854 x 147.0 x 26.11 | reference drawing maxima, with 146.99 mm depth rounded up; drive not selected |
@@ -128,7 +128,7 @@ The SATA figure is nominal. The linked product flyer gives a worst-case envelope
 These are model parameters chosen so the stack can be exercised. They are not product specifications and no test backs them:
 
 | Parameter | Value | Why provisional |
-|---|---|---|
+| --- | --- | --- |
 | Printed retention pad thickness | 3 | No measured drive-to-shell clearance, no durometer, no creep data |
 | HDD ground skid height in carrier-only study | 8 | Provisional isolated-study value; full-rack skids instead derive to 8.6 from measured base/slot datums |
 | Carrier interface strip preserved | all geometry at abs(X) >= 70 | Keeps the author's slide and pocket geometry untouched rather than reconstructing it |
@@ -138,13 +138,13 @@ Drive retention by strap and pad is a deliberate consequence of unknown hole pat
 
 ## Current assembled stack
 
-| Module | Allocated U | Floor Z above ground |
-| --- | ---: | ---: |
-| HDD carrier | 2 | 12.6 |
-| SATA SSD carrier | 1 | 63.4 |
-| OWC shelf or generic NVMe carrier | 1 | 88.8 |
-| Empty Mac cooling band | 1 | 114.2 |
-| Original Mac module | 3 | 139.6 |
+| Module                            | Allocated U | Floor Z above ground |
+| --------------------------------- | ----------: | -------------------: |
+| HDD carrier                       |           2 |                 12.6 |
+| SATA SSD carrier                  |           1 |                 63.4 |
+| OWC shelf or generic NVMe carrier |           1 |                 88.8 |
+| Empty Mac cooling band            |           1 |                114.2 |
+| Original Mac module               |           3 |                139.6 |
 
 The cooling band is 25.4 mm high and the cradle ends at Z=214.6. This eight-unit arrangement fits the full frame, not the short frame. A 3U HDD allocation moves the upper bays by another measured pitch and requires nine units.
 

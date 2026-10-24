@@ -2,7 +2,7 @@ import { defineConfig } from "vite-plus";
 
 export default defineConfig({
     fmt: {
-        ignorePatterns: [".agents/**", "assets/**", "exports/**", "**/*.md"],
+        ignorePatterns: [".agents/**", "assets/**", "exports/**"],
         printWidth: 100,
         tabWidth: 4,
         proseWrap: "never",

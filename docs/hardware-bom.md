@@ -7,7 +7,7 @@ All lengths are millimetres. Inch conversions use 25.4 mm/in.
 ## Provenance labels
 
 | Label | Meaning |
-|---|---|
+| --- | --- |
 | `datasheet` | Published by the manufacturer in a datasheet, product manual, or tech-spec page that is linked here. |
 | `vendor-image` | Published by the vendor, but only as a dimensioned marketing image, not a drawing. |
 | manual | Stated in the manufacturer's own support manual or assembly guide that is linked here. |
@@ -20,14 +20,14 @@ All lengths are millimetres. Inch conversions use 25.4 mm/in.
 
 ### Apple Silicon Mac mini (1, not purchased)
 
-| Property | Value | Provenance |
-|---|---|---|
-| Width | 127.0 | `datasheet` |
-| Depth | 127.0 | `datasheet` |
-| Height | 50.0 | `datasheet` |
-| Weight | 0.67 kg (M4), 0.73 kg (M4 Pro) | `datasheet` |
-| Max continuous power | 155 W | `datasheet` |
-| Operating temperature | 10 to 35 C | `datasheet` |
+| Property              | Value                          | Provenance  |
+| --------------------- | ------------------------------ | ----------- |
+| Width                 | 127.0                          | `datasheet` |
+| Depth                 | 127.0                          | `datasheet` |
+| Height                | 50.0                           | `datasheet` |
+| Weight                | 0.67 kg (M4), 0.73 kg (M4 Pro) | `datasheet` |
+| Max continuous power  | 155 W                          | `datasheet` |
+| Operating temperature | 10 to 35 C                     | `datasheet` |
 
 Source: Apple, Mac mini (2024) Tech Specs, <https://support.apple.com/en-us/121555>.
 
@@ -36,13 +36,13 @@ The owner has not bought a Mac mini and the generation is unconfirmed. These are
 ### Crucial P310 4TB NVMe SSD, CT4000P310SSD8 (2, owner-held)
 
 | Property | Value | Provenance |
-|---|---|---|
+| --- | --- | --- |
 | Form factor | M.2 2280, no heatsink | `datasheet` |
 | Length | 80.0 (3.15 in) | `datasheet` |
 | Width | 22.0 (0.86 in) | `datasheet` |
 | Thickness | 2.3 (0.09 in) for the capacities the datasheet covers | `datasheet` |
-| Thickness and sidedness at 4TB | `unknown` | |
-| Weight at 4TB | `unknown` | |
+| Thickness and sidedness at 4TB | `unknown` |  |
+| Weight at 4TB | `unknown` |  |
 
 Source: Crucial P310 2280 PCIe 4.0 NVMe M.2 SSD datasheet (Micron, 2024), <https://www.simms.co.uk/PDFS/Products/SSD/Crucial-P310-M.2-2280-datasheet.pdf>. That revision tabulates 500GB, 1TB and 2TB only, and gives one "no heatsink" dimension column: length 3.15 in, height 0.09 in, width 0.86 in.
 
@@ -53,13 +53,13 @@ The 4TB SKU is absent from the datasheet revision that carries dimensions, so it
 ### Samsung 870 8TB 2.5-inch SATA SSD (1, owner-held)
 
 | Property | Value | Provenance |
-|---|---|---|
+| --- | --- | --- |
 | Length | 100.0 | `datasheet` |
 | Width | 69.85 | `datasheet` |
 | Height | 6.8 | `datasheet` |
 | Worst-case with tolerance | 100.45 x 70.10 x 7.00 | `datasheet` |
 | Weight | 57 g | retailer listing, not Samsung |
-| Mounting holes | `unknown` from the datasheet; the 2.5-inch standard is SFF-8201 M3 | |
+| Mounting holes | `unknown` from the datasheet; the 2.5-inch standard is SFF-8201 M3 |  |
 
 Sources: Samsung SSD 870 QVO Data Sheet Rev 1.1, June 2020, <https://download.semiconductor.samsung.com/resources/data-sheet/Samsung_SSD_870_QVO_Data_Sheet_Rev1.1_10129514052310.pdf> (technical specifications table: "Dimension 100 x 69.85 x 6.8 (mm)", form factor 2.5 inch, capacities 1/2/4/8TB, 8TB model `MZ-77Q8T0` with codes `MZ-77Q8T0BW`, `MZ-77Q8T0B/AM`, `MZ-77Q8T0B/CN`). Per-axis tolerances come from the 870 QVO product flyer, width 100.20 +/-0.25, depth 69.85 +/-0.25, height 6.80 +/-0.20, mirrored at <https://www.netram.fr/out/media/MZ-77Q1T0BW-Samsung-Q870-1To.pdf>.
 
@@ -76,7 +76,7 @@ No 12TB drive has been chosen or bought. To let the stack be screened at all, th
 Reference part: Seagate IronWolf Pro `ST12000NT001`.
 
 | Property | Value | Provenance |
-|---|---|---|
+| --- | --- | --- |
 | Length | 146.99 max (5.787 in max) | `datasheet` |
 | Width | 101.854 max (4.000 +/-0.010 in, so 101.60 nominal) | `datasheet` |
 | Height | 26.11 max (1.028 in max) | `datasheet` |
@@ -109,14 +109,14 @@ A 3.5-inch HDD needs both 5V and 12V at its SATA power connector. A USB data con
 ### NVMe option 1, two commercial USB4 enclosures (unselected)
 
 | Property | OWC Express 1M2, 40Gb/s original | Provenance |
-|---|---|---|
+| --- | --- | --- |
 | DIY enclosure SKU | `OWCUS4EXP1M2`, listed as "0TB DIY Enclosure" | vendor page |
 | Length x Width x Height | 132.0 x 71.1 x 22.8 | `vendor-image` |
 | Accepts | NVMe M.2 2230 / 2242 / 2280, single or double sided | manual |
 | Heatsinked M.2 | "NVMe SSDs with a heatsink will not fit and are not supported" | manual |
 | Interface and power | USB4 40Gb/s, bus powered, 0.3 m USB-C cable included | manual |
 | Operating temperature | 5 to 35 C | manual |
-| Mounting holes, weight, thermal rating | `unknown` | |
+| Mounting holes, weight, thermal rating | `unknown` |  |
 
 Sources: [OWC Express 1M2 product page](https://eshop.macsales.com/shop/owc-express-1m2), [OWC's dimensioned product image](https://media.owcnow.com/image/upload/owc-express-1m2-side-measurements), and [OWC's support manual](https://eshop.macsales.com/manuals/owc-express-1m2-support-manual). The dimensions are vendor artwork rather than a mechanical drawing, and no tolerance is published.
 
@@ -147,7 +147,7 @@ A custom housing makes PCB mounting, connector support, shielding and heat trans
 This option retains the Samsung case and adds a 5V USB-to-SATA bridge. The following discontinued product documents the type of specification needed from a currently purchasable replacement; it is not a purchase recommendation:
 
 | Property | Plugable USBC-SATA24 | Provenance |
-|---|---|---|
+| --- | --- | --- |
 | Body size | 40 x 30 x 10 (1.6 x 1.2 x 0.4 in) | vendor page |
 | Weight | 20 g | vendor page |
 | Captive cable | 0.24 m USB-C to SATA | vendor page |
@@ -168,12 +168,12 @@ A commercial 2.5-inch USB enclosure combines the bridge and drive mounting. Its 
 ### HDD option 1, a powered commercial enclosure (unselected)
 
 | Property | OWC Mercury Elite Pro, USB 3.2 5Gb/s | Provenance |
-|---|---|---|
+| --- | --- | --- |
 | Bay | one 3.5-inch SATA 6Gb/s drive, screwed to an inner chassis | manual |
 | Supply | external adapter, AC in 100-240V 50/60Hz 0.9A, DC out 12V/3A | manual |
 | Host port | USB 3.2 Gen 1 Type-B, 5Gb/s | manual |
 | Operating temperature | 5 to 35 C | manual |
-| Enclosure dimensions | `unknown` from OWC | |
+| Enclosure dimensions | `unknown` from OWC |  |
 
 Source: Support Manual for OWC Mercury Elite Pro USB 3.2 (5Gb/s), <https://eshop.macsales.com/manuals/mercury-elite-pro-assembly-manual-user-guide>, and <https://eshop.macsales.com/tech_center/manuals/mercury-elite-pro-usb-5g-manual.pdf>. Manufacturer dimensions were not obtained, so no enclosure envelope is modeled. The manual says not to block ventilation openings or place objects on top; any rack mount must preserve those conditions. Drive-capacity compatibility also needs confirmation for the selected 12TB model.
 

@@ -13,7 +13,7 @@ The owner has **mise (Node and pnpm), FreeCAD, and Bambu Studio installed on mac
 ## Hardware to accommodate
 
 | Device | Quantity | Role | Known information |
-|---|---:|---|---|
+| --- | --: | --- | --- |
 | Apple Silicon Mac mini | 1 | Main computer | **Not yet purchased / exact generation unconfirmed.** Existing Rack Pro supports the M4-style 127 × 127 × 50mm form factor; verify selected Mac before final fit. Keep Mac in its factory enclosure. |
 | Crucial P310 4TB NVMe SSD | 2 | Fast primary storage | Model `CT4000P310SSD8`; M.2 2280. Each requires a suitable USB4/Thunderbolt NVMe bridge/enclosure and heat sinking. |
 | Samsung 870 8TB 2.5-inch SATA SSD | 1 | Existing data SSD | Exact 870 submodel/physical height and chosen SATA-to-USB bridge must be verified. |
@@ -22,14 +22,14 @@ The owner has **mise (Node and pnpm), FreeCAD, and Bambu Studio installed on mac
 
 The new 12TB HDD is intended to remain connected to the Mac as a backup device after migrating the existing storage. The rack should support it independently of the SSD modules. A 3.5-inch HDD generally needs both 5V and 12V power; do not treat it as bus-powered merely because it connects by USB.
 
-**Current storage and data safety:** The three existing large SSDs constitute one OpenZFS pool (`biggie`) with three *single-disk top-level vdevs* (8TB SATA + 4TB NVMe + 4TB NVMe), **no redundancy**, approximately 8.73 TiB logical data and no ZFS snapshots. Pool compression ratio is 1.00×. **Design work must never reformat, detach, repartition, mount read/write, or otherwise modify any of these disks.** Storage migration is a separate project and requires a verified external backup before disassembly. Do not assume the 12TB disk already exists or is an adequate sole backup of irreplaceable data.
+**Current storage and data safety:** The three existing large SSDs constitute one OpenZFS pool (`biggie`) with three _single-disk top-level vdevs_ (8TB SATA + 4TB NVMe + 4TB NVMe), **no redundancy**, approximately 8.73 TiB logical data and no ZFS snapshots. Pool compression ratio is 1.00×. **Design work must never reformat, detach, repartition, mount read/write, or otherwise modify any of these disks.** Storage migration is a separate project and requires a verified external backup before disassembly. Do not assume the 12TB disk already exists or is an adequate sole backup of irreplaceable data.
 
 ## Rack Pro design constraints
 
 Source description reports:
 
 - Rail opening: **146mm** between the vertical rails.
-- **1U = 25mm**, **2U = 50mm**, **3U = 75mm** in this *miniature* rack system.
+- **1U = 25mm**, **2U = 50mm**, **3U = 75mm** in this _miniature_ rack system.
 - The author supplies editable **1U, 2U, and 3U STEP templates** that include the rail mating/slide geometry; larger module heights can be adapted.
 - Modules slide into the rails and can be secured with **M3 flat-head screws into heat-set inserts**; the author's example hardware is 4mm-long M3 inserts and M3×8 flat-head screws. Verify actual mounting geometry in STEP files before specifying hardware.
 - The author already supplies a **1U two-OWC-Express-1M2 module**. Consider reusing it only if those particular USB4 enclosures are selected; do not design around accessories the owner has not purchased.
