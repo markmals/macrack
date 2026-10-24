@@ -1,0 +1,6 @@
+[nvme]
+width = 71.1
+depth = 132.0
+height = 22.8
+source = "OWC Express 1M2 40Gb/s OWCUS4EXP1M2 vendor dimensions; comparison only, NOT selected or purchased: https://media.owcnow.com/image/upload/owc-express-1m2-side-measurements"
+status = "manufacturer-confirmed"

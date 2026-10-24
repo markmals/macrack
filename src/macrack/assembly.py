@@ -10,11 +10,11 @@ from macrack.sata_ssd_insert import build_sata_insert
 
 LIMITATIONS = [
     "Candidate geometry only; no physical fit, thermal, vibration or load validation.",
-    "Rails, frame, original Mac cradle and original OWC insert are not available locally.",
+    "Carrier-only study at nominal 25 mm module heights; use the rack command for measured 25.4 mm slots and the original frame.",
     "Selected NVMe enclosures, SATA bridges, hubs, cables and power supplies are unresolved and absent from collision checks.",
     "Samsung, future HDD and future Mac envelopes are reference assumptions, not verified owner hardware.",
     "HDD strap retention and printed ground skids require engineering and physical validation; no screw/grommet pattern is claimed.",
-    "No rail extension is generated without the original rail geometry; usable source rack height is unknown.",
+    "This study excludes the frame and original modules; its ground-skid datum is not the full-rack base-support datum.",
 ]
 
 
@@ -100,8 +100,8 @@ def build_assembly(
                 "Mac_bay_U": 3,
                 "total_U": allocated_units,
                 "allocated_height_with_ground_skids_mm": allocated_units * U + design.hdd_feet,
-                "rail_pitch_mm": U,
-                "complete_external_enclosure_dimensions": "unknown: frame, cradle, cables and adapters missing",
+                "nominal_module_height_mm": U,
+                "complete_external_enclosure_dimensions": "not evaluated by the carrier-only study; see the rack command",
             },
             "limitations": LIMITATIONS,
         },

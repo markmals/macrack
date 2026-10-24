@@ -27,11 +27,9 @@ def render_preview(step: Path, image: Path, document: Path | None) -> None:
     cad_document.recompute()
     application.processEvents()
     view = Gui.activeDocument().activeView()
+    view.setAnimationEnabled(False)
+    view.setCameraType("Orthographic")
     orientation = (0.4247082, 0.1759199, 0.3398511, 0.8204732)
-    view.setCameraOrientation(orientation)
-    view.fitAll()
-    application.processEvents()
-    # Window activation can reset the camera after the first event delivery.
     view.setCameraOrientation(orientation)
     view.fitAll()
     view.redraw()

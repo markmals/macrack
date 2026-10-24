@@ -61,7 +61,7 @@ def interface_check(shape: Shape, source: Path, units: int, side_wall: float) ->
     return {
         "missing_source_interface_mm3": missing_volume,
         "added_interface_interference_mm3": added_volume,
-        "rail_clearance": "unknown: mating rail source and physical fit test absent",
+        "rail_clearance": "not evaluated by template preservation; see full-rack geometry report and physical coupon test",
     }
 
 
@@ -86,7 +86,7 @@ def inspect_sources(source: Path) -> dict:
         "units": "mm",
         "transform": "source.rotate(Axis.X, 90): X=width, +Y=rear, +Z=up",
         "templates": measurements,
-        "missing_sources": ["rails/frame", "Mac cradle", "OWC dual enclosure module"],
+        "coverage": "STEP templates only; original frame and modules are inspected separately from the 3MF",
     }
 
 

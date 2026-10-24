@@ -4,7 +4,7 @@
 
 Build a compact, modular, 3D-printable rack enclosure for a future Apple Silicon Mac mini and the owner's existing storage. Extend Jerrod H's **Mac mini “Rack Pro”** MakerWorld design rather than creating a competing rail/mounting system from scratch.
 
-**Source model:** https://makerworld.com/en/models/896157-mac-mini-rack-pro-set-for-m4-mac-mini-add-ons#profileId-1040265
+**Source model:** https://makerworld.com/en/models/896157-mac-mini-rack-pro-set-for-m4-mac-mini-add-ons#profileId-854246
 
 The primary output is **maintainable parametric CAD source plus printable, inspectable models**, not just screenshots or a concept render. The final result should be physically plausible, small, serviceable, and expandable. Aim for an overall enclosure smaller than the owner's current Teenage Engineering Computer-1 chassis, if the mechanical and thermal requirements permit; **do not assume a particular rack height is already sufficient**.
 
@@ -36,7 +36,7 @@ Source description reports:
 - The author recommends **an unoccupied 1U beneath the Mac mini** for its air intake/exhaust. Preserve at least the original model's intended cooling space and don't put a solid tray directly underneath it.
 - The download has a **private-use license**. Keep downloaded source geometry and derivatives for the owner's private project; do not publish or redistribute original or modified Rack Pro geometry without obtaining permission.
 
-**Important:** The verified facts above come from the maker's public model description, not from measurements of downloaded CAD. **Source STEP geometry is not yet in this repository.** Do not claim any insert is proven to fit until the downloaded templates have been inspected and, ultimately, a physical fit test performed.
+The facts above quote the maker's public description. This checkout now contains the original 1U/2U/3U STEP templates and the private `assets/rack-pro/rack-pro.3mf` project. Use `docs/dimensions.md` and the generated manifests for measured constraints: the template heights are 25/50/75mm, while the actual rail pitch is 25.4mm. The 3MF is gitignored and may need to be supplied in another checkout. No physical rail fit, hardware fit, structural capacity or print success is validated by the CAD checks alone.
 
 ## Design priorities
 
@@ -125,7 +125,7 @@ Adapt the layout if a simpler repository structure is more maintainable. All gen
 
 ## Reference links
 
-- Original Rack Pro design/download: https://makerworld.com/en/models/896157-mac-mini-rack-pro-set-for-m4-mac-mini-add-ons#profileId-1040265
+- Original Rack Pro design/download: https://makerworld.com/en/models/896157-mac-mini-rack-pro-set-for-m4-mac-mini-add-ons#profileId-854246
 - build123d documentation: https://build123d.readthedocs.io/
 - build123d STEP/STL import-export: https://build123d.readthedocs.io/en/latest/import_export.html
 - FreeCAD: https://www.freecad.org/
