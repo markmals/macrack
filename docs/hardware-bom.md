@@ -269,15 +269,25 @@ The local 2U and 3U templates carry a Ø3.8 mm blind pocket 4.2 mm deep in each 
 
 HDD fasteners, if a 3.5-inch drive is ever hard-mounted, are 6-32 UNC with the penetration and torque limits in the Seagate table above. The current carriers do not use them: retention is by strap and printed pad, because no chosen drive means no verified hole pattern.
 
-## Storage, backup, and why 12TB is not proven adequate
+## Storage, backup, and filesystem
 
 The owner's three large SSDs form a single OpenZFS pool, `biggie`, built from three single-disk top-level vdevs (8TB SATA plus two 4TB NVMe) with no redundancy, roughly 8.73 TiB of logical data, no snapshots, and a compression ratio of 1.00x.
 
-A 12 TB drive has about 10.91 TiB of raw capacity before filesystem overhead, leaving roughly 2.18 TiB above the recorded logical data. That arithmetic does not establish adequate backup capacity or safety: growth, migration format, filesystem overhead, verification and restore testing are unresolved. The future HDD is not already an external verified backup, and one copy is not sufficient protection for irreplaceable data.
+The owner has ruled out keeping ZFS. The 12TB HDD is now intended as staging space during the migration and then as additional storage, not as a backup. A 12 TB drive has about 10.91 TiB of raw capacity, roughly 2.18 TiB above the recorded logical data, so it can hold one staging copy. While the SSDs are reformatted it holds the only copy, so irreplaceable data needs a second copy elsewhere first. Afterwards nothing backs up any drive unless a separate backup, such as an off-site service, is added.
 
-OpenZFS on macOS is a kernel extension. On Apple silicon, loading it requires booting into Recovery and setting the startup disk to Reduced Security with user-managed kernel extensions allowed (<https://support.apple.com/guide/security/securely-extending-the-kernel-sec8e454101b/web>; <https://openzfsonosx.org/forum/viewtopic.php?t=3911>). Keeping `biggie` on the Mac therefore lowers the security policy of the machine agents run on. The alternative is a migration to APFS, which cannot span the three drives without a concatenated set that keeps the current all-or-nothing failure mode; separate per-drive volumes would need the data to divide into groups that fit 7.27, 3.64 and 3.64 TiB.
+OpenZFS on macOS is a kernel extension. On Apple silicon, loading it requires booting into Recovery and setting the startup disk to Reduced Security with user-managed kernel extensions allowed (<https://support.apple.com/guide/security/securely-extending-the-kernel-sec8e454101b/web>; <https://openzfsonosx.org/forum/viewtopic.php?t=3911>). That lowers the security policy of the machine agents run on, which is why ZFS was ruled out.
 
-This project is mechanical CAD. It does not read, mount, write, repartition, reformat, detach, or otherwise touch any of the owner's disks, and no step in this repo should ever require doing so. Migration is a separate job that starts with a verified external backup.
+No on-disk format is native and safe on macOS, Linux and Windows at once:
+
+| Format | macOS | Linux | Windows | Provenance |
+| --- | --- | --- | --- | --- |
+| APFS | native | read-only by default through the out-of-tree `linux-apfs-rw` module, whose write support is experimental and which cannot read encrypted volumes; `apfs-fuse` is read-only | read and write with Paragon APFS for Windows | <https://github.com/linux-apfs/linux-apfs-rw>, <https://www.paragon-drivers.com/en/apfswin/> |
+| exFAT | native | native since kernel 5.4 | native | third-party |
+| NTFS | read-only without a paid driver | native | native | third-party |
+
+exFAT is the only format all three write natively, but it has no journal: an interrupted write, such as a power loss or an unexpected disconnect, can leave the allocation table inconsistent and the volume unmountable (<https://eshop.macsales.com/blog/98153-the-hidden-risks-of-exfat-what-every-mac-and-pc-user-needs-to-know/>, vendor blog). It also has no Unix permissions or extended attributes, so macOS stores the attributes in `._` sidecar files, and Backblaze notes a history of exFAT backup problems (<https://help.backblaze.com/hc/en-us/articles/217665398-Backing-up-External-Hard-Drives>). APFS cannot pool the drives without a concatenated set that keeps the all-or-nothing failure mode, so APFS means one volume per drive.
+
+This project is mechanical CAD. It does not read, mount, write, repartition, reformat, detach, or otherwise touch any of the owner's disks, and no step in this repo should ever require doing so. Migration is a separate job that starts with a verified copy of the data.
 
 ## Unresolved items
 
@@ -300,7 +310,7 @@ These block any claim of fit, thermal adequacy, or hardware specification:
 15. Vibration isolation for a spinning drive. Not designed, not measured.
 16. Fastener schedule. Insert type and screw length require detailed alignment/head/penetration checks and printed coupon testing, not just the author's example hardware.
 17. macOS storage limits. A USB-attached SATA drive gets no TRIM and no native S.M.A.R.T. on macOS, whichever bridge is chosen.
-18. Filesystem on the Mac. Keeping ZFS requires Reduced Security for the OpenZFS kernel extension; moving to APFS requires a verified copy elsewhere first and a data split that fits the separate drives.
+18. Filesystem and backup. ZFS is ruled out and APFS is the leading candidate; no format is native and safe on all three operating systems. With the 12TB HDD used as storage, no drive has a backup.
 
 ## Licensing and publication
 
