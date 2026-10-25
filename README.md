@@ -4,6 +4,8 @@ Private-use parametric CAD derived from Jerrod H's [Mac mini Rack Pro](https://m
 
 The assembled comparison model measures approximately **172.6 × 178.8 × 262 mm**, including the Mac handles but excluding unselected bridges, cables and power supplies. It is a CAD candidate, not a validated hardware installation or print job.
 
+The [build and migration plan](docs/build-and-migration-plan.md) lists what to print, the filament and hardware to buy, and the steps from printing the rack to moving the data off Tangerine.
+
 ## Build the full rack
 
 Run from the repository root with [mise](https://mise.jdx.dev) (it provides Node and pnpm):

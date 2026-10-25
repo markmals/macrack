@@ -2,9 +2,9 @@
 
 ## Candidate status
 
-Exports are candidate solids, not approved print jobs. No owner printer, nozzle, material brand, filament condition or service temperature is selected. The original author's Bambu 3MF is available for inspection, but no custom configured print project or G-code is supplied. No physical print or fit test has been performed.
+Exports are candidate solids, not approved print jobs. No owner printer or nozzle is recorded. The original author's Bambu 3MF is available for inspection, but no custom configured print project or G-code is supplied. No physical print or fit test has been performed.
 
-PETG or ASA are candidates for thermally loaded brackets after operating temperatures are measured. PLA is not presumed suitable for continuous load near hot drives or bridges. Use an appropriately enclosed printer and ventilation if ASA is chosen.
+The [build and migration plan](build-and-migration-plan.md) sets the materials: PLA for the frame and Mac parts, as the original author printed them, and PETG for the drive trays, the OWC holder and the fit coupons. PLA is not presumed suitable for continuous load near hot drives or bridges. Operating temperatures are still unmeasured. Use an appropriately enclosed printer and ventilation if ASA is chosen instead of PETG.
 
 ## Geometry and orientation
 
