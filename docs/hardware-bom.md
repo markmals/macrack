@@ -20,18 +20,18 @@ All lengths are millimetres. Inch conversions use 25.4 mm/in.
 
 ### Apple Silicon Mac mini (1, not purchased)
 
-| Property              | Value                          | Provenance  |
-| --------------------- | ------------------------------ | ----------- |
-| Width                 | 127.0                          | `datasheet` |
-| Depth                 | 127.0                          | `datasheet` |
-| Height                | 50.0                           | `datasheet` |
-| Weight                | 0.67 kg (M4), 0.73 kg (M4 Pro) | `datasheet` |
-| Max continuous power  | 155 W                          | `datasheet` |
-| Operating temperature | 10 to 35 C                     | `datasheet` |
+| Property              | Value                                      | Provenance  |
+| --------------------- | ------------------------------------------ | ----------- |
+| Width                 | 127.0                                      | `datasheet` |
+| Depth                 | 127.0                                      | `datasheet` |
+| Height                | 50.0                                       | `datasheet` |
+| Weight                | 0.67 kg (M6, M4), 0.73 kg (M5 Pro, M4 Pro) | `datasheet` |
+| Max continuous power  | 155 W                                      | `datasheet` |
+| Operating temperature | 10 to 35 C                                 | `datasheet` |
 
-Source: Apple, Mac mini (2024) Tech Specs, <https://support.apple.com/en-us/121555>.
+Sources: Apple, Mac mini (M6 or M5 Pro) Tech Specs, <https://support.apple.com/en-us/128108>, and Mac mini (2024) Tech Specs, <https://support.apple.com/en-us/121555>.
 
-The owner has not bought a Mac mini and the generation is unconfirmed. These are Mac mini (2024) M4/M4 Pro figures, used as a reference envelope only. A different generation changes the envelope and invalidates the Mac keepout. Apple publishes no port-position dimensions, no foot pattern, and no vent geometry, so port cutouts and intake clearance cannot be dimensioned from the spec page. The Rack Pro author recommends 1U of empty space under the Mac for intake and exhaust.
+The owner has not bought a Mac mini. Apple's current model, introduced in 2026, offers an M6 with three rear Thunderbolt 4 ports or an M5 Pro with three rear Thunderbolt 5 ports. It keeps the 2024 M4/M4 Pro body, weights, power and temperature figures, and both generations have two front USB-C ports at USB 3 10Gb/s. The 2024 body remains the reference for the original Rack Pro cradle; a later body change would invalidate the Mac keepout. Apple publishes no port-position dimensions, no foot pattern, no vent geometry and no per-port power figure, so port cutouts, intake clearance and the bus-power budget cannot be derived from the spec pages. The Rack Pro author recommends 1U of empty space under the Mac for intake and exhaust.
 
 ### Crucial P310 4TB NVMe SSD, CT4000P310SSD8 (2, owner-held)
 
@@ -40,15 +40,17 @@ The owner has not bought a Mac mini and the generation is unconfirmed. These are
 | Form factor | M.2 2280, no heatsink | `datasheet` |
 | Length | 80.0 (3.15 in) | `datasheet` |
 | Width | 22.0 (0.86 in) | `datasheet` |
-| Thickness | 2.3 (0.09 in) for the capacities the datasheet covers | `datasheet` |
+| Thickness | 2.3 (0.09 in), one figure for the whole 2280 family | `datasheet` |
+| Sequential read / write, 4TB | 7,100 / 6,000 MB/s, PCIe 4.0 x4 | `datasheet` |
 | Thickness and sidedness at 4TB | `unknown` |  |
 | Weight at 4TB | `unknown` |  |
+| Power | not published by Crucial at any capacity | `unknown` |
 
-Source: Crucial P310 2280 PCIe 4.0 NVMe M.2 SSD datasheet (Micron, 2024), <https://www.simms.co.uk/PDFS/Products/SSD/Crucial-P310-M.2-2280-datasheet.pdf>. That revision tabulates 500GB, 1TB and 2TB only, and gives one "no heatsink" dimension column: length 3.15 in, height 0.09 in, width 0.86 in.
+Sources: Crucial P310 2280 PCIe 4.0 NVMe M.2 SSD datasheet (Micron, 2024), <https://www.simms.co.uk/PDFS/Products/SSD/Crucial-P310-M.2-2280-datasheet.pdf>, which tabulates 500GB, 1TB and 2TB only; a newer flyer revision with 4TB rows, mirrored at <https://www.battlebetter.in/assets/pdf/crucial-P310-2280-b2c-product-flyer-combination-en-compressed.pdf>; and the Crucial P310 4TB product page, <https://www.crucial.com/ssd/p310/ct4000p310ssd8>. The newer flyer misprints the 4TB part number as `CT2000P310SSD8`; the product page gives `CT4000P310SSD8`. Both flyer revisions give one no-heatsink dimension column for the family, so the 4TB thickness, sidedness and weight are still not broken out.
 
-The owner describes these drives as bare boards. OWC's Express 1M2 manual, linked below, requires an SSD without an attached heatsink. That matches the intended packaging route, but does not establish compatibility with the specific 4TB P310's thickness, power demand or thermal behavior.
+The owner describes these drives as bare boards. Both OWC Express 1M2 generations, linked below, require an SSD without an attached heatsink and accept single- or double-sided drives, so the unconfirmed sidedness does not block that route. Neither establishes the 4TB P310's power demand or thermal behavior.
 
-The 4TB SKU is absent from the datasheet revision that carries dimensions, so its thickness, sidedness and weight remain unconfirmed. It also needs a USB4 or Thunderbolt bridge and a heat path, neither of which is selected; the options and their evidence are in "Packaging the three device classes" below. No NVMe device envelope is modeled from an invented enclosure size.
+TechPowerUp measures the 2TB 2280 at 0.80 W idle, 3.5 W average and 5.1 W maximum, and lists both QLC and TLC builds of that capacity (<https://www.techpowerup.com/ssd-specs/crucial-p310-2-tb.d2945>, third-party). It has no 4TB entry. Those figures must not be transferred to the 4TB drive, and the owner's two drives may not be identical builds. The packaging options are in "Packaging the three device classes" below. No NVMe device envelope is modeled from an invented enclosure size.
 
 ### Samsung 870 8TB 2.5-inch SATA SSD (1, owner-held)
 
@@ -59,6 +61,7 @@ The 4TB SKU is absent from the datasheet revision that carries dimensions, so it
 | Height | 6.8 | `datasheet` |
 | Worst-case with tolerance | 100.45 x 70.10 x 7.00 | `datasheet` |
 | Weight | 57 g | retailer listing, not Samsung |
+| Power, 8TB | 2.4 W read / 3.3 W write average, 45 mW idle; no peak or inrush figure | `datasheet` |
 | Mounting holes | `unknown` from the datasheet; the 2.5-inch standard is SFF-8201 M3 |  |
 
 Sources: Samsung SSD 870 QVO Data Sheet Rev 1.1, June 2020, <https://download.semiconductor.samsung.com/resources/data-sheet/Samsung_SSD_870_QVO_Data_Sheet_Rev1.1_10129514052310.pdf> (technical specifications table: "Dimension 100 x 69.85 x 6.8 (mm)", form factor 2.5 inch, capacities 1/2/4/8TB, 8TB model `MZ-77Q8T0` with codes `MZ-77Q8T0BW`, `MZ-77Q8T0B/AM`, `MZ-77Q8T0B/CN`). Per-axis tolerances come from the 870 QVO product flyer, width 100.20 +/-0.25, depth 69.85 +/-0.25, height 6.80 +/-0.20, mirrored at <https://www.netram.fr/out/media/MZ-77Q1T0BW-Samsung-Q870-1To.pdf>.
@@ -94,9 +97,9 @@ The three envelope numbers are maxima under manufacturing tolerance, not nominal
 
 A 3.5-inch drive needs 5V and 12V. Connecting it over USB does not make it bus-powered. No supply, bridge or dock has been chosen, so there is no power budget in this repo.
 
-### Connectivity and power (nothing selected)
+### Connectivity and power (nothing bought)
 
-No NVMe bridge, SATA-to-USB bridge, powered hub, dock, or AC/DC supply has been chosen. Their dimensions, connector positions, cable bend radii, heat output and current draw are all unknown, so no connector, cable-path or power-adapter keepout is generated; these are explicit gaps in assembly collision coverage. The sections below record what each device class needs and what the manufacturers of candidate parts publish. Nothing in them is selected and nothing has been bought.
+No NVMe enclosure, SATA-to-USB bridge, powered hub, dock, or AC/DC supply has been bought. The owner intends to use OWC Express 1M2 enclosures for the NVMe drives; their generation and every other connectivity part remain unselected. Bridge dimensions, connector positions, cable bend radii, heat output and current draw are not modeled, so no connector, cable-path or power-adapter keepout is generated; these are explicit gaps in assembly collision coverage. The sections below record what each device class needs and what the manufacturers of candidate parts publish.
 
 ## Packaging the three device classes
 
@@ -106,21 +109,33 @@ The Samsung already has its factory case. A tray can hold that case directly, wi
 
 A 3.5-inch HDD needs both 5V and 12V at its SATA power connector. A USB data connection does not establish that those rails or sufficient spin-up power are available. Use a commercially rated powered bridge or enclosure with its specified external supply; no improvised power distribution is proposed.
 
-### NVMe option 1, two commercial USB4 enclosures (unselected)
+### NVMe option 1, two OWC Express 1M2 enclosures (owner's intended route, not purchased)
 
-| Property | OWC Express 1M2, 40Gb/s original | Provenance |
-| --- | --- | --- |
-| DIY enclosure SKU | `OWCUS4EXP1M2`, listed as "0TB DIY Enclosure" | vendor page |
-| Length x Width x Height | 132.0 x 71.1 x 22.8 | `vendor-image` |
-| Accepts | NVMe M.2 2230 / 2242 / 2280, single or double sided | manual |
-| Heatsinked M.2 | "NVMe SSDs with a heatsink will not fit and are not supported" | manual |
-| Interface and power | USB4 40Gb/s, bus powered, 0.3 m USB-C cable included | manual |
-| Operating temperature | 5 to 35 C | manual |
-| Mounting holes, weight, thermal rating | `unknown` |  |
+The owner intends to buy OWC Express 1M2 enclosures. Both generations hold one M.2 drive, so the two P310s need two enclosures. The generation is still open and follows from the Mac's Thunderbolt version.
 
-Sources: [OWC Express 1M2 product page](https://eshop.macsales.com/shop/owc-express-1m2), [OWC's dimensioned product image](https://media.owcnow.com/image/upload/owc-express-1m2-side-measurements), and [OWC's support manual](https://eshop.macsales.com/manuals/owc-express-1m2-support-manual). The dimensions are vendor artwork rather than a mechanical drawing, and no tolerance is published.
+| Property | Express 1M2, 40G original | Express 1M2 80G | Provenance |
+| --- | --- | --- | --- |
+| DIY enclosure SKU | `OWCUS4EXP1M2` | `OWCUS4V2EXP1M2` | vendor page |
+| Price read 2026-10-25 | $88.99 | $169.99, launched at $219 | vendor page |
+| Bridge controller | ASMedia ASM2464PD | Intel JHL9480 (Barlow Ridge) | vendor page |
+| Accepts | M.2 2230 / 2242 / 2280, single or double sided | M.2 2242 / 2280, single or double sided | manual |
+| Heatsinked M.2 | "NVMe SSDs with a heatsink will not fit and are not supported" | same wording | manual |
+| Host link | USB4 40Gb/s | USB4 80Gb/s | vendor page |
+| OWC speed, Thunderbolt 4 / USB4 40Gb/s Mac | 3189MB/s on Apple silicon | up to 3800MB/s | vendor page |
+| OWC speed, Thunderbolt 5 Mac | capped by its 40Gb/s link | over 6000MB/s; up to 6800 MB/s with a PCIe 4.0 drive | vendor page, manual |
+| Catalog length x width x height | 13.2 x 7.0 x 2.3 cm | 13.3 x 7.2 x 2.4 cm | vendor page |
+| Dimensioned artwork | 132.0 x 71.1 x 22.8 | none published | `vendor-image` |
+| Weight | 253.0 g | 280.8 g | vendor page |
+| Power | bus powered, no adapter input | bus powered, no adapter input | vendor page |
+| Cable | 0.3 m USB-C | 0.3 m USB-C | manual |
+| Operating temperature | 5 to 35 C | 5 to 35 C | manual |
+| Mounting holes, thermal rating | `unknown` | `unknown` |  |
 
-The manual's heatsink restriction is only one compatibility requirement. The 4TB P310's fit, power and thermal behavior still need confirmation. Two usage notes also affect the host connection:
+Sources, 40G: [product page](https://eshop.macsales.com/shop/owc-express-1m2), [item page](https://eshop.macsales.com/item/OWC/US4EXP1M2/), [dimensioned image](https://media.owcnow.com/image/upload/owc-express-1m2-side-measurements), [support manual](https://eshop.macsales.com/manuals/owc-express-1m2-support-manual). Sources, 80G: [product page](https://eshop.macsales.com/shop/owc-express-1m2-80g), [item page](https://eshop.macsales.com/item/OWC/US4V2EXP1M2/), [solutions page](https://www.owc.com/solutions/express-1m2-80g), [support manual](https://eshop.macsales.com/manuals/owc-express-1m2-80gbs-support-manual), [launch announcement](https://www.owc.com/blog/owc-express-1m2-80g-launch-usb4-v2-thunderbolt-5-diy-ssd). Prices are discounted store prices on the date shown and will drift. The dimensions are catalog figures or vendor artwork, not mechanical drawings, and no tolerance is published.
+
+On a Thunderbolt 4 Mac both enclosures are limited by the 40Gb/s link, so the 80G adds little for about twice the price. On a Thunderbolt 5 Mac only the 80G uses most of the P310's 7,100 / 6,000 MB/s rating. Apple's Thunderbolt 5 port lists USB4 at up to 40Gb/s; OWC's 6000MB/s figure was measured on a Thunderbolt 5 Mac Studio, but no measurement on a Mac mini was found.
+
+Two 40G usage notes affect the host connection:
 
 > Select high power-draw NVMe SSDs may require more power than provided by the OWC Express 1M2.
 
@@ -128,13 +143,17 @@ The manual's heatsink restriction is only one compatibility requirement. The 4TB
 
 Source for both: Support Manual for OWC Express 1M2, section 3.3 Usage Notes, <https://eshop.macsales.com/manuals/owc-express-1m2-support-manual>.
 
-The second warning requires a compatibility and power check on the chosen Mac, bridges and connection topology. Those are all unresolved. A suitably powered hub or dock may be needed, but is not assumed to fix every device-mounting failure.
+The 80G manual's usage notes contain neither warning. That is an absence of a warning, not a statement that the limitation was removed. The 80G manual instead names Western Digital SN5xx 2280 drives as incompatible.
 
-OWC also sells the Express 1M2 80G, DIY SKU `OWCUS4V2EXP1M2`, announced 19 August 2025 at <https://www.owc.com/blog/owc-express-1m2-80g-launch-usb4-v2-thunderbolt-5-diy-ssd>. It is a different USB4 80Gb/s product. Rounded catalog dimensions do not establish that it fits the original Rack Pro holder; that SKU would require its own dimensional and clearance checks.
+`MacMini16,11` is not an Apple identifier. Apple lists the 2024 Mac mini as `Mac16,10` and `Mac16,11` without splitting them by chip (<https://support.apple.com/en-us/102852>), and EveryMac maps `Mac16,11` to the M4 Pro (third-party, <https://everymac.com/ultimate-mac-lookup/?identify=Mac16%2C11>). OWC's "(M4) MacMini16,11" therefore fits either 2024 model, and the 2026 models are not mentioned. OWC gives no cause and no workaround. Two enclosures plus a bus-powered SATA bridge make three bus-powered devices, so the chosen Mac and topology need a real test. A suitably powered hub or dock may be needed, but is not assumed to fix every device-mounting failure.
 
-The Rack Pro author supplies a 1U module for two Express 1M2 enclosures, with ventilation slots added in the 02/02/2025 update: <https://makerworld.com/en/models/896157-mac-mini-rack-pro-set-for-m4-mac-mini-add-ons#profileId-854246>. This predates the 80G announcement, making the original 40Gb/s enclosure the reuse candidate. The holder is present on plate 6 of the supplied `assets/rack-pro/rack-pro.3mf`; see the [source inventory](dimensions.md#original-source-inventory).
+The Rack Pro author supplies a 1U module for two Express 1M2 enclosures, with ventilation slots added in the 02/02/2025 update: <https://makerworld.com/en/models/896157-mac-mini-rack-pro-set-for-m4-mac-mini-add-ons#profileId-854246>. It predates the 80G. The holder is present on plate 6 of the supplied `assets/rack-pro/rack-pro.3mf`; see the [source inventory](dimensions.md#original-source-inventory).
 
 Two Express 1M2 enclosures side by side are 142.2 wide, exceeding the generic carrier's 140 mm interior. Their height also exceeds that carrier's current 1U floor/air allowances. The full-rack comparison instead reuses the original holder unchanged. Its measured bay accepts the published whole-box envelopes without positive-volume overlap: nominal clearance is 0.4 mm at each outer side, 0.4 mm in total depth and 0.4 mm below the nominal 1U ceiling. The boxes touch at the centerline and front stop. This is a geometric comparison, not a purchase, retention, connector-access, thermal or physical-fit validation.
+
+On OWC's catalog figures, two 80G boxes would exceed that measured bay by about 1.0 mm in width, 0.6 mm in depth and 0.8 mm in height. The catalog rounds to 0.1 cm and lists both generations as 5.2 x 2.8 x 0.9 in, so the true excess is uncertain, but no reading of the published numbers places the 80G inside the 40G envelope. Treat the original holder as 40G-only until a real 80G is measured.
+
+OWC's four-bay Express 4M2 is not a substitute. Each bay runs at PCIe 4.0 x1 with single-drive performance up to 1600MB/s, and the unit needs an external 12V supply, uses fans, and measures 17.8 x 6.0 x 13.9 cm at 1.8 kg (<https://eshop.macsales.com/shop/owc-express-4m2>, vendor page). It would also put both NVMe vdevs behind one bridge, cable and supply.
 
 ### NVMe option 2, a printed housing around a selected commercial bridge (unselected)
 
@@ -142,28 +161,64 @@ The alternative is to buy a bridge board plus a heatsink and build the housing h
 
 A custom housing makes PCB mounting, connector support, shielding and heat transfer part of this design's validation work. Preserve commercial shielding and heatsinks wherever possible; printed plastic does not replace them. The resulting width and U count depend on the selected electronics and cooling hardware. No size reduction or 1U fit can be claimed before those are known.
 
-### SATA option 1, keep the factory case and add a bridge (unselected)
+### SATA option 1, keep the factory case and add a cable bridge (preferred form, unselected)
 
-This option retains the Samsung case and adds a 5V USB-to-SATA bridge. The following discontinued product documents the type of specification needed from a currently purchasable replacement; it is not a purchase recommendation:
+The Samsung's factory case already encloses the drive. It needs a USB-to-SATA bridge, not a second case. A cable-style bridge keeps the tray's existing device envelope, and it is the only form surveyed with any external-power option.
 
-| Property | Plugable USBC-SATA24 | Provenance |
-| --- | --- | --- |
-| Body size | 40 x 30 x 10 (1.6 x 1.2 x 0.4 in) | vendor page |
-| Weight | 20 g | vendor page |
-| Captive cable | 0.24 m USB-C to SATA | vendor page |
-| Bridge IC | ASMedia ASM1351 | vendor page |
-| Protocols | UASP and BOT, LBA48, 512e and 4K sectors | vendor page |
-| Capacity statement | "Large capacity drives are supported, 8+TB with 512e and 4K bytes per sector" | vendor page |
-| Power | 5V bus powered, no adapter; explicitly does not supply 12V | vendor page |
-| Status | marked discontinued on the vendor page | vendor page |
+Requirements, in order of consequence:
 
-Source: <https://plugable.com/products/usbc-sata24>.
+1. **512-byte logical sectors.** The drive already holds GPT partitions addressed in 512-byte blocks. The host learns the block size from the bridge, not the drive. A bridge that presents 4096-byte logical blocks moves every partition boundary, so the partitions cannot be read through it. Some bridges do this only for drives above 2TB, a workaround for 32-bit Windows XP (Macrium, <https://kbx.macrium.com/macrium-reflect-x/incompatible-disk-selected>; Gough Lui's bridge tests, <https://goughlui.com/2013/10/02/experiment-usb-to-sata-bridge-chips-and-2tb-drives/>; both third-party). Plugable documents the same chip shipping with either behavior depending on firmware (<https://kb.plugable.com/data-storage/understanding-large-sata-drive-compatibility>, vendor page). No surveyed vendor publishes this property, so it must be checked on the purchased unit with a blank scratch drive larger than 2TB that has 512-byte logical sectors (512n or 512e, not 4Kn). macOS should report a 512-byte device block size for it. Never run this check with the Samsung.
+2. **Documented 8TB support**, not a tested-up-to statement for smaller drives.
+3. **USB-C host plug, USB 3.2 Gen 2 10Gb/s, UASP.**
+4. **Fit behind the drive.** The SATA carrier ends at assembly Y=33, the rear rails at Y=71.9 and the base at Y=87.5, which leaves about 40 mm behind the drive's connector inside the rails. A bridge body hanging from the SATA connector needs its own support.
 
-Require documented support for the chosen 8TB drive and sector format, adequate power, and compatibility with the selected Mac. A vendor statement that only smaller drives were tested is insufficient evidence for this build. SMART passthrough and TRIM behavior also depend on the bridge and operating system.
+Both remaining candidates use the ASMedia ASM235CM bridge and come from the same vendor:
+
+| Property | StarTech `USB31CSAT3CB` | StarTech `USB31C2SAT3` | Provenance |
+| --- | --- | --- | --- |
+| Price and stock, 2026-10-25 | $30.74, in stock | $68.66, back-ordered | vendor page |
+| Bridge IC | ASMedia ASM235CM | ASMedia ASM235CM | `datasheet` |
+| Host link | USB 3.2 Gen 2 10Gb/s, USB-C plug, UASP | USB 3.2 Gen 2 10Gb/s, USB-C plug, UASP | `datasheet` |
+| Capacity statement | "Currently tested with hard drives up to 2TB at 7200 RPM" | "Currently tested with hard drives up to 10TB" | `datasheet` |
+| Drives | 2.5-inch only | 2.5-inch and 3.5-inch | `datasheet` |
+| Power | bus powered; connector row "USB-C (5Gbps, 4.5W)" | bus powered for 2.5-inch drives; 12V 2A adapter included for 3.5-inch drives "or for any 2.5 in. drives that may require additional power" | `datasheet` |
+| Size | flat cable 43.0 wide x 5.0 thick, 508 long overall, 29.2 g | adapter body 87 x 25 x 20 with 1 m cable, 60 g | `datasheet` |
+| Operating temperature | 0 to 70 C | 0 to 60 C | `datasheet` |
+
+Sources: <https://www.startech.com/en-us/hdd/usb31csat3cb>, <https://media.startech.com/cms/pdfs/usb31csat3cb_datasheet.pdf>, <https://www.startech.com/en-us/hdd/usb31c2sat3>, <https://media.startech.com/cms/pdfs/usb31c2sat3_datasheet.pdf>.
+
+`USB31C2SAT3` is the only current cable whose vendor states testing beyond 8TB. Its 3.5-inch support also allows the sector-size check on a blank HDD larger than 2TB before the Samsung is connected. StarTech does not state that the bridge stops drawing bus power for a 2.5-inch drive when its adapter is connected, so the supply is not a proven fix for the third-bus-powered-device note. Its adapter body and power brick need a place in the rack, and the body's orientation relative to the SATA plug is not published. `USB31CSAT3CB` is cheaper, in stock and much thinner, but its capacity statement stops at 2TB and it has no external power option.
+
+Rejected on 2026-10-25:
+
+- Plugable `USBC-SATA24` and `USBC-SATA-V`: both marked discontinued (<https://plugable.com/products/usbc-sata24>, <https://plugable.com/products/usbc-sata-v>).
+- Eaton Tripp Lite `U438-06N-G2-W`: vendor capacity statement 4TB, chipset unpublished (<https://www.eaton.com/us/en-us/skuPage.U438-06N-G2-W.html>).
+- Cable Matters `202042`: its manual names an ASM105x bridge at 5Gb/s and drives up to 2TB, contradicting its web page (<https://www.cablematters.com/pc-695-125-usb-c-to-sata-adapter-10-inches.aspx>).
+- Sabrent `USB-DS12`: SATA link limited to 3Gb/s, no capacity or UASP statement (<https://sabrent.com/products/usb-ds12>).
+- StarTech `USB31CSAT3M2E`: open-frame dock with an exposed M.2 slot and no capacity statement (<https://www.startech.com/en-us/hdd/usb31csat3m2e>).
+- NewerTech Universal Drive Adapter: USB-A host plug and a 4TB limit (<https://eshop.macsales.com/shop/newertech-universal-drive-adapter>).
+
+macOS limits that apply to every USB-attached SATA bridge:
+
+- **No TRIM.** `trimforce` covers AHCI-attached drives only (`man 8 trimforce`), Apple's USB mass-storage and SCSI stacks have no UNMAP path (<https://github.com/apple-oss-distributions/IOUSBMassStorageClass>, <https://github.com/apple-oss-distributions/IOSCSIArchitectureModelFamily>), and OpenZFS on macOS enables TRIM only when the device advertises `DK_FEATURE_UNMAP` (<https://raw.githubusercontent.com/openzfsonosx/openzfs-fork/development/module/os/macos/zfs/vdev_disk.c>). `zpool trim` therefore fails on such a vdev and `autotrim` skips it. A bridge that advertises TRIM does not change this. Samsung rates the 8TB 870 QVO at 160 MB/s sustained sequential write after its TurboWrite cache, and untrimmed copy-on-write use pushes the drive toward that state.
+- **No native S.M.A.R.T.** smartmontools states that macOS lacks the SCSI pass-through needed for USB drives (<https://www.smartmontools.org/wiki/USB>). The workaround is a third-party kernel extension, which requires lowering the Mac's security policy.
+- **Link speed and sleep.** Plugable found that its ASM1351 bridges link at 5Gb/s on Apple silicon (<https://kb.plugable.com/usb-drive-docks/usb-31-gen-2-to-sata-adapters-limited-to-5gbps-on-apple-m-series-macs->); ASM235CM behavior on Apple silicon is unknown. Unexpected disconnects after sleep are a recurring third-party report for USB storage on Apple silicon (<https://discussions.apple.com/thread/254322044>). For an unredundant pool member that is a data-integrity risk.
 
 ### SATA option 2, a commercial 2.5-inch enclosure (unselected)
 
-A commercial 2.5-inch USB enclosure combines the bridge and drive mounting. Its complete envelope, connector position and cooling requirements would replace the bare-drive reference in the carrier design. No specific enclosure is selected.
+An enclosure would replace the bare-drive envelope in the carrier design and adds no protection the factory case lacks. None of the surveyed enclosures has an auxiliary power input, and none documents 8TB support:
+
+| Enclosure | Bridge | Host receptacle | Size, weight | Capacity statement | Status 2026-10-25 |
+| --- | --- | --- | --- | --- | --- |
+| StarTech `S251BU31315` | ASM235CM | Micro-B, 10Gb/s | 120 x 75 x 21.5, 105 g | tested to 2TB | $51.24, reseller only |
+| StarTech `S251BMU313` | "Realtek RTS9201", not a part Realtek lists | Micro-B, 10Gb/s claimed | 123 x 75 x 12, 78 g | tested to 2TB | $46.11, reseller only |
+| ICY BOX `IB-247-C31` | VIA Labs VL716 | USB-C, 10Gb/s | 132 x 75 x 14, 119 g | "capacity unlimited" | sold out, no US source |
+| ORICO `DD25-C3` | unpublished | USB-C | 130 x 80 x 17 | 6TB | in stock; sleeps after 10 minutes |
+| OWC Express `ES2.5CU3B` | unpublished | Micro-B, 5Gb/s | unpublished | unpublished | $18.88, in stock |
+
+Sources, all vendor pages: <https://www.startech.com/en-us/hdd/s251bu31315>, <https://www.startech.com/en-us/hdd/s251bmu313>, <https://icybox.de/en/products/ib-247-c31>, <https://oricotechs.com/products/orico-2-5-inch-type-c-6gbps-aluminum-sata-hdd-ssd-enclosure>, <https://eshop.macsales.com/shop/owc-express/usb-3.1>.
+
+VIA Labs is the bridge family in which 4096-byte presentation of a 512e drive was demonstrated, on an older generation (Gough Lui, above). A Micro-B receptacle is a weaker connector to leave under cable load in a rack.
 
 ### HDD option 1, a powered commercial enclosure (unselected)
 
@@ -177,7 +232,7 @@ A commercial 2.5-inch USB enclosure combines the bridge and drive mounting. Its 
 
 Source: Support Manual for OWC Mercury Elite Pro USB 3.2 (5Gb/s), <https://eshop.macsales.com/manuals/mercury-elite-pro-assembly-manual-user-guide>, and <https://eshop.macsales.com/tech_center/manuals/mercury-elite-pro-usb-5g-manual.pdf>. Manufacturer dimensions were not obtained, so no enclosure envelope is modeled. The manual says not to block ventilation openings or place objects on top; any rack mount must preserve those conditions. Drive-capacity compatibility also needs confirmation for the selected 12TB model.
 
-The manual lists an included USB Type-B to Type-A cable. The 2024 reference Mac mini has no USB-A ports, so this option also needs a compatible USB-C to USB 3 Type-B data cable, or a suitable USB-A-to-USB-C data adapter. Account for that connector and cable when measuring the rear clearance.
+The manual lists an included USB Type-B to Type-A cable. Neither the 2024 nor the 2026 Mac mini has USB-A ports, so this option also needs a compatible USB-C to USB 3 Type-B data cable, or a suitable USB-A-to-USB-C data adapter. Account for that connector and cable when measuring the rear clearance.
 
 ### HDD option 2, bare drive in the printed carrier plus a powered bridge (unselected)
 
@@ -189,15 +244,15 @@ Keep factory cases, shielding and heatsinks intact unless a replacement has been
 
 Connector overhang and cable bends are unmodeled. The Express 1M2 includes a 0.3 m USB-C cable, but its installed bend radius and rear clearance have not been measured. The rack still needs connector strain relief and a cable route based on the actual supplied cables.
 
-Each USB-powered enclosure and bridge contributes to the host's power budget. The P310 4TB's power figures were not established from the available sources. A powered USB4/Thunderbolt hub or dock would add its own supply, envelope and bandwidth constraints; a generic powered USB hub does not necessarily preserve a USB4 connection.
+Each USB-powered enclosure and bridge contributes to the host's power budget. Crucial publishes no P310 power figure, and Apple publishes no per-port power figure for either Mac mini generation. A powered USB4/Thunderbolt hub or dock would add its own supply, envelope and bandwidth constraints; a generic powered USB hub does not necessarily preserve a USB4 connection.
 
-For the 2024 reference Mac, Apple lists three rear Thunderbolt 4 ports on M4 or Thunderbolt 5 ports on M4 Pro, plus two front USB-C ports supporting USB 3 at 10Gb/s: <https://support.apple.com/en-us/121555>. Two NVMe bridges and two SATA bridges require four storage connections, so they cannot all connect directly to three rear ports. A front port may serve a SATA bridge; the actual Mac generation, power compatibility and cable-access requirements must be settled before fixing the topology.
+Apple lists three rear Thunderbolt ports (Thunderbolt 4 on M6 and M4, Thunderbolt 5 on M5 Pro and M4 Pro) and two front USB-C ports supporting USB 3 at 10Gb/s on both the 2026 and 2024 Mac mini: <https://support.apple.com/en-us/128108>, <https://support.apple.com/en-us/121555>. Two NVMe enclosures, the SATA bridge and the HDD bridge make four storage connections, so they cannot all connect directly to three rear ports. A front port may serve the SATA bridge or the HDD; the actual Mac generation, power compatibility and cable-access requirements must be settled before fixing the topology.
 
 ## Selections required before device-specific fit
 
-1. Mac generation and its actual port inventory.
-2. NVMe path: two commercial USB4 enclosures, or a printed housing around a specific purchased bridge and heatsink. If enclosures, which SKU, since `OWCUS4EXP1M2` and `OWCUS4V2EXP1M2` are different products.
-3. SATA bridge, with vendor documentation of support at 8TB, and a decision on whether the factory-cased drive stays in the printed carrier.
+1. Mac generation and its actual port inventory: M6 (Thunderbolt 4) or M5 Pro (Thunderbolt 5) on the current model.
+2. NVMe enclosure generation. The owner intends two Express 1M2s: `OWCUS4EXP1M2` (40G) for a Thunderbolt 4 Mac, or `OWCUS4V2EXP1M2` (80G) only for a Thunderbolt 5 Mac and with a redrawn 1U holder.
+3. SATA bridge. The cable form is preferred: `USB31C2SAT3` documents testing beyond 8TB; `USB31CSAT3CB` is thinner and in stock. The purchased unit must pass the 512-byte sector check on a scratch drive before the Samsung is connected.
 4. HDD model and packaging: a powered enclosure, or a tray with a commercial bridge supplying both 5V and 12V and its specified external supply rated for spin-up.
 5. Topology: direct to the Mac, or through a powered hub or dock, followed by a compatibility and power check on the real hardware.
 6. Cable lengths, exit directions and strain relief, before any rear clearance is claimed.
@@ -222,22 +277,23 @@ This project is mechanical CAD. It does not read, mount, write, repartition, ref
 
 These block any claim of fit, thermal adequacy, or hardware specification:
 
-1. Mac mini generation. Not purchased. If it is not the 2024 M4 body, the 127 x 127 x 50 keepout is wrong.
-2. Crucial P310 4TB thickness and sidedness. Not in the datasheet revision that carries dimensions.
-3. Crucial P310 4TB weight. Not published in the sources found.
+1. Mac mini generation. Not purchased. The 2026 M6/M5 Pro keeps the 2024 127 x 127 x 50 body; a later body change would invalidate the keepout.
+2. Crucial P310 4TB thickness and sidedness. Not broken out in either flyer revision. This does not block either Express 1M2, which accept double-sided drives.
+3. Crucial P310 4TB weight and power. Not published by Crucial; third-party power figures exist only for smaller capacities.
 4. Samsung submodel. "Samsung 870 8TB" is most likely an 870 QVO `MZ-77Q8T0`, but the exact model code has to be read off the owner's drive.
 5. Samsung mounting-hole pattern. Not in the Samsung datasheet; the SFF-8201 pattern has not been verified against this drive.
-6. NVMe bridge or enclosure. Not selected. The OWC comparison uses a published whole-enclosure envelope, but the chosen packaging, connector/plug geometry, cable routing and operating heat remain unresolved.
-7. SATA-to-USB bridge. Not selected. The candidate recorded there is marked discontinued by its own vendor, and any replacement has to document support at 8TB itself.
-8. Host compatibility and power check. OWC publishes a bus-powered-device limit on select Macs; whether it applies here depends on the Mac bought, the bridges bought and the topology used, and nobody has tested it.
+6. NVMe enclosure generation. The owner intends Express 1M2s; 40G versus 80G follows the Mac. The 80G has no dimensioned drawing and is not expected to fit the original holder. Connector geometry, cable routing and operating heat remain unresolved for both.
+7. SATA-to-USB bridge. Not purchased. No vendor publishes logical-sector behavior, so the chosen unit must be checked on a scratch drive larger than 2TB first. The only cable documenting testing beyond 8TB is back-ordered, and its adapter body has no rack position yet.
+8. Host compatibility and power check. OWC's 40G manual says the enclosure may not mount as the third bus-powered device on some Macs, names the Mac inconsistently, and gives no mechanism; the 80G manual omits the note. Apple publishes no per-port power figure. Nobody has tested the topology.
 9. 12TB HDD make and model. Not purchased. Weight, screw positions, power, acoustics and vibration behaviour all change with the choice.
 10. Power. No supply, hub, or dock chosen; total current and connector count are unknown. The HDD bridge must supply both SATA power rails, and its specified external supply must cover the chosen drive's spin-up current.
-11. Mac port budget. Port count and port classes follow from a Mac that has not been bought, and four storage devices against three rear Thunderbolt ports is unresolved on the 2024 reference machine.
+11. Mac port budget. Port classes follow from a Mac that has not been bought; four storage devices against three rear Thunderbolt ports is unresolved on both the 2024 and 2026 Mac mini.
 12. Thermal behaviour. No airflow measurement, no CFD, no temperature test. Printed material choice for loaded brackets is open; PETG and ASA are candidates pending a service-temperature check.
 13. Rails and frame. Original geometry is now measured and assembled from the local 3MF; physical fit, stack rigidity and fastening remain unvalidated.
 14. Mass and load path. The HDD's base-supported skid path is modeled, but selected device/adapter masses, load sharing and safe payload have not been established or tested.
 15. Vibration isolation for a spinning drive. Not designed, not measured.
 16. Fastener schedule. Insert type and screw length require detailed alignment/head/penetration checks and printed coupon testing, not just the author's example hardware.
+17. macOS storage limits. A USB-attached SATA drive gets no TRIM and no native S.M.A.R.T. on macOS, whichever bridge is chosen.
 
 ## Licensing and publication
 
