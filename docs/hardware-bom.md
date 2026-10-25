@@ -74,34 +74,40 @@ Samsung does not publish the mounting-hole pattern in this datasheet. The repo m
 
 The Samsung can retain its factory 2.5-inch case and mount directly in a rack tray. It still needs a suitable 5V USB-to-SATA bridge and validated retention. The existing carrier uses a provisional case envelope; physical fit has not been checked.
 
-### 12TB 3.5-inch SATA HDD (1, not purchased, model unknown)
+### Seagate IronWolf 12TB HDD, ST12000VN0008 (1, selected, not purchased)
 
-No 12TB drive has been chosen or bought. To let the stack be screened at all, the model uses a conservative 3.5-inch envelope taken from a drive that is explicitly NOT the selected part.
-
-Reference part: Seagate IronWolf Pro `ST12000NT001`.
+The owner selected the Seagate IronWolf 12TB listed on Amazon as ASIN B084ZTSMWF, <https://www.amazon.com/Seagate-IronWolf-12TB-Internal-Drive/dp/B084ZTSMWF>. The listing's model number is the retail SKU `ST12000VNZ008`; Seagate's documents describe the same drive as `ST12000VN0008`. It stages the data during the migration and then joins the storage pool.
 
 | Property | Value | Provenance |
 | --- | --- | --- |
-| Length | 146.99 max (5.787 in max) | `datasheet` |
-| Width | 101.854 max (4.000 +/-0.010 in, so 101.60 nominal) | `datasheet` |
-| Height | 26.11 max (1.028 in max) | `datasheet` |
-| Weight | 655 g max | `datasheet` |
-| Mounting | 4x 6-32 UNC side, 4x 6-32 UNC bottom, 3 threads min engagement | `datasheet` |
-| Max fastener penetration | 3.56 (0.14 in) | `datasheet` |
-| Max mounting torque | 6 in-lb | `datasheet` |
-| Perimeter cooling clearance | 0.76 min (0.030 in) around the whole drive | `datasheet` |
-| Start current, 12V | 1.69 A DC peak, 1.96 A AC peak | `datasheet` |
-| Operating temperature | 5 to 65 C drive-reported | `datasheet` |
+| Length | 146.99 max (5.787 in) | `datasheet` |
+| Width | 101.85 max; body 101.60 ±0.25 (4.000 ±0.010 in) | `datasheet` |
+| Height | 26.11 max (1.028 in) | `datasheet` |
+| Weight | 650 g | `datasheet` |
+| Recording and design | CMR, helium, 7200 RPM, 256 MB cache | `datasheet` |
+| Sector format | 512e (512-byte logical, 4096-byte physical) | `datasheet` |
+| Sustained transfer | 210 MB/s max | `datasheet` |
+| Bottom mounting holes | 4x 6-32 UNC; columns 95.25 ±0.25 apart (3.750 in), each 3.18 ±0.25 in from the side edge; rear pair 41.28 ±0.51 from the connector-end face, front pair 76.20 ±0.25 forward of them | `datasheet` |
+| Side mounting holes | 2x 6-32 UNC per side, 6.35 ±0.25 above the bottom plane; rear hole 28.52 ±0.51 from the connector-end face, front hole 101.60 ±0.25 forward of it | `datasheet` |
+| Screw limits | 3 threads minimum engagement, 3.56 (0.140 in) maximum penetration, 6 in-lb maximum torque | `datasheet` |
+| Bottom PCB recess | PCB surface 3.56 ±0.38 above the plane of the four bottom hole bosses | `datasheet` |
+| Perimeter cooling clearance | 0.76 min (0.030 in) | `datasheet` |
+| Start current, maximum DC peak | 5V 1.078 A, 12V 1.672 A, 25.45 W | `datasheet` |
+| Start current, maximum AC peak | 5V 1.128 A, 12V 2.06 A | `datasheet` |
+| Average power | 7.3 W operating, 5.1 W idle | `datasheet` |
+| Operating temperature | 0 C ambient to 65 C drive-reported; Seagate advises against sustained drive temperatures above 60 C | `datasheet` |
+| Workload and warranty | 180 TB/year; 3-year limited warranty plus 3 years of Rescue data recovery | `datasheet` |
+| Price read 2026-10-25 | $449.99 from a third-party seller on Amazon; Amazon itself out of stock | vendor page |
 
-Source: Seagate IronWolf Pro SATA Product Manual, publication 206815300 Rev B, July 2025, sections 2.1, 3.3 and figure 4, <https://www.seagate.com/content/dam/seagate/assets/products/nas-drives/ironwolf-pro-hard-drive/files/Seagate_IronWolf_Pro_SATA_Product_Manual_24-20-16-12TB_206815300B.pdf>. The manual states these dimensions conform to SFF-8301 and SFF-8323, <https://www.snia.org/technology-communities/sff/specifications>.
+Sources: Seagate IronWolf SATA Product Manual 202717100 Rev A, August 2021, Table 1 p.7, Table 3 p.12, section 2.6.1 p.17, section 3.4 and Figure 4 p.26, <https://www.seagate.com/content/dam/seagate/migrated-assets/www-content/product-content/ironwolf/en-us/docs/202717100a.pdf>; IronWolf datasheet DS1904.22-2404US, <https://www.seagate.com/content/dam/seagate/en/content-fragments/products/datasheets/ironwolf-12tb/ironwolf-16tb-DS1904-22-2404US-en_US.pdf>. Hole positions are converted from Figure 4's inch dimensions; the front-hole distances are sums of printed dimensions. The manual states conformance to SFF-8301 and SFF-8323, <https://www.snia.org/technology-communities/sff/specifications>.
 
-The three envelope numbers are maxima under manufacturing tolerance, not nominals, which is what a keepout wants. Seagate Exos 3.5-inch datasheets quote the same 26.11 x 101.85 x 146.99 because every compliant 3.5-inch drive shares the SFF-8301 body. Weight, screw positions, power draw and acoustics are drive-specific and change with the drive that is finally bought: 655 g is this Seagate's maximum, and a 12TB helium or SMR drive from another vendor will differ.
+The modeled HDD envelope, 101.854 x 147.0 x 26.11, covers these maxima. Seagate publishes no vibration-isolation guidance, and its outgassing note (section 2.12) rules out sulfur-cured rubber isolators. Its reliability rating assumes a drive temperature of 40 C or less, and its temperature check relies on SMART attribute 194, which macOS cannot read over a USB bridge without a third-party kernel extension.
 
-A 3.5-inch drive needs 5V and 12V. Connecting it over USB does not make it bus-powered. No supply, bridge or dock has been chosen, so there is no power budget in this repo.
+Seagate's own store no longer stocks the standard IronWolf line, and camelcamelcamel recorded this ASIN at $188.29 in February 2024 (<https://camelcamelcamel.com/product/B084ZTSMWF>, third-party). Check the price before buying.
 
 ### Connectivity and power (nothing bought)
 
-No NVMe enclosure, SATA-to-USB bridge, powered hub, dock, or AC/DC supply has been bought. The owner intends to use OWC Express 1M2 enclosures for the NVMe drives; their generation and every other connectivity part remain unselected. Bridge dimensions, connector positions, cable bend radii, heat output and current draw are not modeled, so no connector, cable-path or power-adapter keepout is generated; these are explicit gaps in assembly collision coverage. The sections below record what each device class needs and what the manufacturers of candidate parts publish.
+No connectivity part has been bought. The planned parts are two OWC Express 1M2 40G enclosures, StarTech `USB31CSAT3CB` for the Samsung, and StarTech `USB31C2SAT3` with a Mean Well `GST40A12-P1J` supply for the IronWolf. Bridge dimensions, connector positions, cable bend radii, heat output and current draw are not modeled, so no connector, cable-path or power-adapter keepout is generated; these are explicit gaps in assembly collision coverage. The sections below record what each device class needs and what the manufacturers of candidate parts publish.
 
 ## Packaging the three device classes
 
@@ -180,7 +186,7 @@ Both remaining candidates use the ASMedia ASM235CM bridge and come from the same
 
 | Property | StarTech `USB31CSAT3CB` | StarTech `USB31C2SAT3` | Provenance |
 | --- | --- | --- | --- |
-| Price and stock, 2026-10-25 | $30.74, in stock | $68.66, back-ordered | vendor page |
+| Price and stock, 2026-10-25 | $30.74, in stock | $68.66 at StarTech or $53.53 on Amazon, in stock | vendor page |
 | Bridge IC | ASMedia ASM235CM | ASMedia ASM235CM | `datasheet` |
 | Host link | USB 3.2 Gen 2 10Gb/s, USB-C plug, UASP | USB 3.2 Gen 2 10Gb/s, USB-C plug, UASP | `datasheet` |
 | Capacity statement | "Currently tested with hard drives up to 2TB at 7200 RPM" | "Currently tested with hard drives up to 10TB" | `datasheet` |
@@ -192,6 +198,8 @@ Both remaining candidates use the ASMedia ASM235CM bridge and come from the same
 Sources: <https://www.startech.com/en-us/hdd/usb31csat3cb>, <https://media.startech.com/cms/pdfs/usb31csat3cb_datasheet.pdf>, <https://www.startech.com/en-us/hdd/usb31c2sat3>, <https://media.startech.com/cms/pdfs/usb31c2sat3_datasheet.pdf>.
 
 `USB31C2SAT3` is the only current cable whose vendor states testing beyond 8TB. Its 3.5-inch support also allows the sector-size check on a blank HDD larger than 2TB before the Samsung is connected. StarTech does not state that the bridge stops drawing bus power for a 2.5-inch drive when its adapter is connected, so the supply is not a proven fix for the third-bus-powered-device note. Its adapter body and power brick need a place in the rack, and the body's orientation relative to the SATA plug is not published. `USB31CSAT3CB` is cheaper, in stock and much thinner, but its capacity statement stops at 2TB and it has no external power option.
+
+With the move to APFS, the Samsung is erased through its own bridge before use, so requirement 1 no longer applies. The plan uses `USB31CSAT3CB` for the Samsung and `USB31C2SAT3` for the IronWolf.
 
 Rejected on 2026-10-25:
 
@@ -238,9 +246,17 @@ Source: Support Manual for OWC Mercury Elite Pro USB 3.2 (5Gb/s), <https://eshop
 
 The manual lists an included USB Type-B to Type-A cable. Neither the 2024 nor the 2026 Mac mini has USB-A ports, so this option also needs a compatible USB-C to USB 3 Type-B data cable, or a suitable USB-A-to-USB-C data adapter. Account for that connector and cable when measuring the rear clearance.
 
-### HDD option 2, bare drive in the printed carrier plus a powered bridge (unselected)
+### HDD bridge: StarTech USB31C2SAT3 with a 12V 3.34 A supply (planned, not purchased)
 
-The existing HDD tray is a provisional mechanical carrier. A selected commercial powered bridge must supply both SATA power rails, support the chosen 12TB drive and provide retained connectors. Its specified external supply must cover drive spin-up as well as bridge consumption. The bridge and supply envelopes are currently unknown, so 2U remains a candidate allocation rather than a complete packaged design.
+The bare IronWolf sits in the printed tray on StarTech's `USB31C2SAT3` (see the SATA bridge table). Its bundled 12V 2 A (24 W) adapter is below the drive's own 25.45 W maximum DC start figure, and the bridge must also produce the drive's 5V rail from the same 12V input [INFERENCE: StarTech does not say how the 5V rail is produced]. At an assumed 85% efficiency for that 5V conversion, spin-up needs about 2.2 A at 12V for roughly 8 s and about 2.6 A at the transient peak; the 8 s is read from the manual's Figure 1 trace, not a stated value. The plan replaces the bundled adapter with a Mean Well `GST40A12-P1J`.
+
+| Item | Rating and fit | Price read 2026-10-25 | Source |
+| --- | --- | --- | --- |
+| StarTech `USB31C2SAT3` | ASM235CM, USB 3.2 Gen 2, 1 m cable, body 87 x 25 x 20, "Currently tested with hard drives up to 10TB" | $53.53 on Amazon, $68.66 at StarTech | <https://www.startech.com/en-us/hdd/usb31c2sat3> |
+| Bundled StarTech adapter | 12V 2 A, Plug Type M, which StarTech defines as 5.5 x 2.1 mm centre-positive | included | <https://www.startech.com/en-us/faq/dc-barrel-connector-dimensions> |
+| Mean Well `GST40A12-P1J` | 12V 3.34 A (40 W), 5.5 x 2.1 mm centre-positive | $17.30 at Jameco | <https://www.jameco.com/z/GST40A12-P1J-MEAN-WELL-MEAN-WELL-GST40A12-P1J-40W-12V-AC-to-DC-Desktop-Power-Supply-Adapter_2224307.html> |
+
+StarTech's stated testing stops at 10TB, so the 12TB drive must pass a full format and a full-capacity write-and-read check on this bridge before it holds the only copy of anything. The 1 m cable reaches a front USB-C port; the adapter body still needs a supported position behind the HDD tray.
 
 ## Shielding, heat, cables, bus power, and the Mac's ports
 
@@ -255,10 +271,10 @@ Apple lists three rear Thunderbolt ports (Thunderbolt 4 on M6 and M4, Thunderbol
 ## Selections required before device-specific fit
 
 1. Mac generation. The owner intends the M5 Pro, with three rear Thunderbolt 5 ports, as the only server; not purchased.
-2. NVMe enclosure generation. The owner intends two Express 1M2s. On the intended Thunderbolt 5 Mac, `OWCUS4V2EXP1M2` (80G) roughly doubles throughput but needs a redrawn 1U holder; `OWCUS4EXP1M2` (40G) fits the original holder.
-3. SATA bridge. The cable form is preferred: `USB31C2SAT3` documents testing beyond 8TB; `USB31CSAT3CB` is thinner and in stock. The purchased unit must pass the 512-byte sector check on a scratch drive before the Samsung is connected.
-4. HDD model and packaging: a powered enclosure, or a tray with a commercial bridge supplying both 5V and 12V and its specified external supply rated for spin-up.
-5. Topology: direct to the Mac, or through a powered hub or dock, followed by a compatibility and power check on the real hardware.
+2. NVMe enclosures. Two Express 1M2 40G, `OWCUS4EXP1M2`, planned; they fit the original holder.
+3. SATA bridge. `USB31CSAT3CB` planned for the Samsung, which is erased through it before use.
+4. HDD. IronWolf `ST12000VN0008` selected; `USB31C2SAT3` with a Mean Well `GST40A12-P1J` supply planned. The HDD tray must change from straps to screws before printing; see the fit check.
+5. Topology. Rear Thunderbolt 5 ports for the two Express 1M2s and the Samsung bridge, a front USB-C port for the externally powered HDD bridge, and a powered hub for the Samsung bridge only if three bus-powered devices fail to mount.
 6. Cable lengths, exit directions and strain relief, before any rear clearance is claimed.
 
 ## Fasteners and rack interface hardware
@@ -267,7 +283,7 @@ The Rack Pro author states that modules are secured with an M3 flat-head cap scr
 
 The local 2U and 3U templates carry a Ø3.8 mm blind pocket 4.2 mm deep in each slide. The 1U template has no such pocket. A particular insert's outside diameter and taper must be checked against the pocket; length alone cannot prove fit. The original rails are now assembled from source meshes, but the detailed screw/head envelope, alignment, penetration and insert installation have not been validated. No final fastener length or insert specification is established here.
 
-HDD fasteners, if a 3.5-inch drive is ever hard-mounted, are 6-32 UNC with the penetration and torque limits in the Seagate table above. The current carriers do not use them: retention is by strap and printed pad, because no chosen drive means no verified hole pattern.
+The selected IronWolf publishes its 6-32 UNC hole pattern, penetration and torque limits (table above). The current HDD tray still uses straps, and its strap path crosses its own support skids (see the fit check), so the tray needs a screw-mount revision before printing.
 
 ## Storage, backup, and filesystem
 
@@ -285,7 +301,11 @@ No on-disk format is native and safe on macOS, Linux and Windows at once:
 | exFAT | native | native since kernel 5.4 | native | third-party |
 | NTFS | read-only without a paid driver | native | native | third-party |
 
-exFAT is the only format all three write natively, but it has no journal: an interrupted write, such as a power loss or an unexpected disconnect, can leave the allocation table inconsistent and the volume unmountable (<https://eshop.macsales.com/blog/98153-the-hidden-risks-of-exfat-what-every-mac-and-pc-user-needs-to-know/>, vendor blog). It also has no Unix permissions or extended attributes, so macOS stores the attributes in `._` sidecar files, and Backblaze notes a history of exFAT backup problems (<https://help.backblaze.com/hc/en-us/articles/217665398-Backing-up-External-Hard-Drives>). APFS cannot pool the drives without a concatenated set that keeps the all-or-nothing failure mode, so APFS means one volume per drive.
+exFAT is the only format all three write natively, but it has no journal: an interrupted write, such as a power loss or an unexpected disconnect, can leave the allocation table inconsistent and the volume unmountable (<https://eshop.macsales.com/blog/98153-the-hidden-risks-of-exfat-what-every-mac-and-pc-user-needs-to-know/>, vendor blog). It also has no Unix permissions or extended attributes, so macOS stores the attributes in `._` sidecar files, and Backblaze notes a history of exFAT backup problems (<https://help.backblaze.com/hc/en-us/articles/217665398-Backing-up-External-Hard-Drives>). The owner chose APFS.
+
+The owner wants every drive to appear as one volume, with the SSDs filled first. Apple removed Fusion containers in macOS 26: `diskutil apfs createContainer -main ... -secondary ...` now refuses with "Fusion drives are deprecated", and existing Fusion containers no longer mount (<https://jtsylve.blog/post/2022/12/29/APFS-Fusion-Containers>, third-party). The remaining kernel-extension-free option is an AppleRAID concatenated set with APFS on top. `man diskutil` documents the `concat` type, live `add member`, and APFS on an AppleRAID set. Tests on sparse disk images on Apple silicon showed that APFS fills member 0 first, reuses freed space on member 0 before later members, and grows its container when a member is added. Members listed in order P310, P310, Samsung, IronWolf therefore fill SSD-first; this is observed allocator behavior, not an Apple guarantee.
+
+A concatenated set is one failure domain. `man diskutil`: "Striped and concatentated volumes are, in fact, more vulnerable to faults than single disk volumes." Losing any member permanently loses the whole volume. In the same tests, forcibly detaching one member unmounted the volume at once and left that member marked `Failed`, and the set came back only after every member was detached and re-attached. macOS sends no notification when a member goes missing. Apple's Disk Utility guide also states that RAID sets cannot use FileVault encryption (<https://support.apple.com/guide/disk-utility/overview-of-creating-disk-sets-dskufd8dce72/mac>). The alternative that keeps per-drive failure isolation is four separate APFS volumes behind a multi-location media library with a scheduled mover.
 
 This project is mechanical CAD. It does not read, mount, write, repartition, reformat, detach, or otherwise touch any of the owner's disks, and no step in this repo should ever require doing so. Migration is a separate job that starts with a verified copy of the data.
 
@@ -298,19 +318,20 @@ These block any claim of fit, thermal adequacy, or hardware specification:
 3. Crucial P310 4TB weight and power. Not published by Crucial; third-party power figures exist only for smaller capacities.
 4. Samsung submodel. "Samsung 870 8TB" is most likely an 870 QVO `MZ-77Q8T0`, but the exact model code has to be read off the owner's drive.
 5. Samsung mounting-hole pattern. Not in the Samsung datasheet; the SFF-8201 pattern has not been verified against this drive.
-6. NVMe enclosure generation. The owner intends Express 1M2s; 40G versus 80G follows the Mac. The 80G has no dimensioned drawing and is not expected to fit the original holder. Connector geometry, cable routing and operating heat remain unresolved for both.
-7. SATA-to-USB bridge. Not purchased. No vendor publishes logical-sector behavior, so the chosen unit must be checked on a scratch drive larger than 2TB first. The only cable documenting testing beyond 8TB is back-ordered, and its adapter body has no rack position yet.
+6. NVMe enclosures. Two Express 1M2 40G planned, not purchased. Connector geometry, cable routing and operating heat remain unresolved.
+7. SATA-to-USB bridge. `USB31CSAT3CB` planned, not purchased. Its stated testing stops at 2TB; the 8TB drive's capacity is checked when it is erased through the bridge.
 8. Host compatibility and power check. OWC's 40G manual says the enclosure may not mount as the third bus-powered device on some Macs, names the Mac inconsistently, and gives no mechanism; the 80G manual omits the note. Apple publishes no per-port power figure. Nobody has tested the topology.
-9. 12TB HDD make and model. Not purchased. Weight, screw positions, power, acoustics and vibration behaviour all change with the choice.
-10. Power. No supply, hub, or dock chosen; total current and connector count are unknown. The HDD bridge must supply both SATA power rails, and its specified external supply must cover the chosen drive's spin-up current.
-11. Mac port budget. Port classes follow from a Mac that has not been bought; four storage devices against three rear Thunderbolt ports is unresolved on both the 2024 and 2026 Mac mini.
-12. Thermal behaviour. No airflow measurement, no CFD, no temperature test. Printed material choice for loaded brackets is open; PETG and ASA are candidates pending a service-temperature check.
+9. 12TB HDD. IronWolf `ST12000VN0008` selected, not purchased. StarTech's stated bridge testing stops at 10TB, and macOS cannot read the drive's SMART temperature over USB.
+10. Power. The HDD bridge supply is planned as a Mean Well `GST40A12-P1J`; its brick and the bridge body have no rack position, and no measurement confirms spin-up margin.
+11. Mac port budget. The planned topology uses all three rear Thunderbolt ports and one front USB-C port; it has not been tested on the real Mac.
+12. Thermal behaviour. No airflow measurement, no CFD, no temperature test. The plan prints the frame and Mac cradle in PLA, as the original author did, and the drive trays and OWC holder in PETG; no service temperature has been measured.
 13. Rails and frame. Original geometry is now measured and assembled from the local 3MF; physical fit, stack rigidity and fastening remain unvalidated.
 14. Mass and load path. The HDD's base-supported skid path is modeled, but selected device/adapter masses, load sharing and safe payload have not been established or tested.
 15. Vibration isolation for a spinning drive. Not designed, not measured.
 16. Fastener schedule. Insert type and screw length require detailed alignment/head/penetration checks and printed coupon testing, not just the author's example hardware.
 17. macOS storage limits. A USB-attached SATA drive gets no TRIM and no native S.M.A.R.T. on macOS, whichever bridge is chosen.
-18. Filesystem and backup. ZFS is ruled out and APFS is the leading candidate; no format is native and safe on all three operating systems. With the 12TB HDD used as storage, no drive has a backup.
+18. Filesystem, pooling and backup. APFS on an AppleRAID concatenated set is the owner's choice: one volume, SSD-first, but any member loss or dropout takes the whole volume down. With the 12TB HDD used as storage, no drive has a backup.
+19. HDD tray retention. The strap path crosses the tray's skids; the tray needs screw mounting to the IronWolf's published holes before it is printed.
 
 ## Licensing and publication
 

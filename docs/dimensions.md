@@ -117,9 +117,9 @@ Full sourcing, links and caveats are in `docs/hardware-bom.md`. Summary of what 
 | --- | --- | --- |
 | Mac mini | 127.0 x 127.0 x 50.0 | manufacturer figure for Mac mini (2024), machine not purchased |
 | 2.5-inch SATA SSD | 69.85 x 100.0 x 6.8 | manufacturer figure, Samsung 870 QVO datasheet; owner's exact submodel still to be read off the drive |
-| 3.5-inch HDD | 101.854 x 147.0 x 26.11 | reference drawing maxima, with 146.99 mm depth rounded up; drive not selected |
+| 3.5-inch HDD | 101.854 x 147.0 x 26.11 | Seagate IronWolf ST12000VN0008 maxima, with 146.99 mm depth rounded up; selected, not purchased |
 | M.2 2280 card | not modeled as a solid | 22 x 80 footprint known; 4TB thickness unpublished |
-| NVMe enclosure | absent in generic mode; 71.1 x 132.0 x 22.8 in OWC comparison mode | manufacturer dimensions for original 40Gb/s Express 1M2; not selected |
+| NVMe enclosure | absent in generic mode; 71.1 x 132.0 x 22.8 in OWC mode | manufacturer dimensions for original 40Gb/s Express 1M2; planned, not purchased |
 
 The SATA figure is nominal. The linked product flyer gives a worst-case envelope of 100.45 long, 70.10 wide and 7.00 thick; the nominal datasheet differs slightly, so confirm the physical drive before final fit. The HDD width comes from the high side of 4.000 +/-0.010 in. These values screen the referenced products only; they do not establish an envelope for every future drive or a press fit.
 
@@ -132,9 +132,9 @@ These are model parameters chosen so the stack can be exercised. They are not pr
 | Printed retention pad thickness | 3 | No measured drive-to-shell clearance, no durometer, no creep data |
 | HDD ground skid height in carrier-only study | 8 | Provisional isolated-study value; full-rack skids instead derive to 8.6 from measured base/slot datums |
 | Carrier interface strip preserved | all geometry at abs(X) >= 70 | Keeps the author's slide and pocket geometry untouched rather than reconstructing it |
-| Strap retention instead of screws | n/a | The drive hole patterns are unverified, so no mounting holes are drilled in CAD |
+| Strap retention instead of screws | n/a | The Samsung's hole pattern is unpublished; the IronWolf's is now published but not yet applied |
 
-Drive retention by strap and pad is a deliberate consequence of unknown hole patterns, not a preference. Once an actual drive is in hand and its holes are measured, hard mounting can replace it.
+Drive retention by strap and pad started as a consequence of unknown hole patterns, not a preference. The selected IronWolf's manual now gives its 6-32 UNC hole pattern, and the HDD tray's strap path conflicts with its skids (see the fit check), so the HDD tray needs a screw-mount revision. The Samsung tray keeps straps until its holes are measured on the drive.
 
 ## Current assembled stack
 

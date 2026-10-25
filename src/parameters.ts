@@ -75,8 +75,8 @@ export const DEFAULT_PARAMETERS: Parameters = {
         width: 101.854,
         depth: 147.0,
         height: 26.11,
-        source: "Seagate ST12000NT001 manual 206815300 Rev B; screening envelope, NOT a selected drive",
-        status: "provisional",
+        source: "Seagate IronWolf ST12000VN0008 manual 202717100 Rev A Figure 4 and datasheet DS1904.22-2404US maxima, depth rounded up; selected, not purchased",
+        status: "manufacturer-confirmed",
     },
     mac: {
         width: 127.0,
