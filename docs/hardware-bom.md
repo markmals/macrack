@@ -33,6 +33,8 @@ Sources: Apple, Mac mini (M6 or M5 Pro) Tech Specs, <https://support.apple.com/e
 
 The owner has not bought a Mac mini. Apple's current model, introduced in 2026, offers an M6 with three rear Thunderbolt 4 ports or an M5 Pro with three rear Thunderbolt 5 ports. It keeps the 2024 M4/M4 Pro body, weights, power and temperature figures, and both generations have two front USB-C ports at USB 3 10Gb/s. The 2024 body remains the reference for the original Rack Pro cradle; a later body change would invalidate the Mac keepout. Apple publishes no port-position dimensions, no foot pattern, no vent geometry and no per-port power figure, so port cutouts, intake clearance and the bus-power budget cannot be derived from the spec pages. The Rack Pro author recommends 1U of empty space under the Mac for intake and exhaust.
 
+The owner intends to buy a Mac mini with M5 Pro (18-core CPU, 20-core GPU), 64GB unified memory, 1TB storage and 10Gb Ethernet, shown at $3,299 on 2026-10-25, and to run it as the only server. It must therefore host all of the storage below.
+
 ### Crucial P310 4TB NVMe SSD, CT4000P310SSD8 (2, owner-held)
 
 | Property | Value | Provenance |
@@ -135,6 +137,8 @@ Sources, 40G: [product page](https://eshop.macsales.com/shop/owc-express-1m2), [
 
 On a Thunderbolt 4 Mac both enclosures are limited by the 40Gb/s link, so the 80G adds little for about twice the price. On a Thunderbolt 5 Mac only the 80G uses most of the P310's 7,100 / 6,000 MB/s rating. Apple's Thunderbolt 5 port lists USB4 at up to 40Gb/s; OWC's 6000MB/s figure was measured on a Thunderbolt 5 Mac Studio, but no measurement on a Mac mini was found.
 
+On Apple silicon the Express 1M2 runs in USB4 mode, where macOS sees a native NVMe drive with both TRIM and SMART available. Howard Oakley tested this with the 40G (<https://eclecticlight.co/2024/04/09/which-external-drives-have-trim-and-smart-support/>, third-party). The macOS limits listed under SATA option 1 do not apply to this route.
+
 Two 40G usage notes affect the host connection:
 
 > Select high power-draw NVMe SSDs may require more power than provided by the OWC Express 1M2.
@@ -201,7 +205,7 @@ Rejected on 2026-10-25:
 macOS limits that apply to every USB-attached SATA bridge:
 
 - **No TRIM.** `trimforce` covers AHCI-attached drives only (`man 8 trimforce`), Apple's USB mass-storage and SCSI stacks have no UNMAP path (<https://github.com/apple-oss-distributions/IOUSBMassStorageClass>, <https://github.com/apple-oss-distributions/IOSCSIArchitectureModelFamily>), and OpenZFS on macOS enables TRIM only when the device advertises `DK_FEATURE_UNMAP` (<https://raw.githubusercontent.com/openzfsonosx/openzfs-fork/development/module/os/macos/zfs/vdev_disk.c>). `zpool trim` therefore fails on such a vdev and `autotrim` skips it. A bridge that advertises TRIM does not change this. Samsung rates the 8TB 870 QVO at 160 MB/s sustained sequential write after its TurboWrite cache, and untrimmed copy-on-write use pushes the drive toward that state.
-- **No native S.M.A.R.T.** smartmontools states that macOS lacks the SCSI pass-through needed for USB drives (<https://www.smartmontools.org/wiki/USB>). The workaround is a third-party kernel extension, which requires lowering the Mac's security policy.
+- **No native S.M.A.R.T. over USB 3.** macOS reads SMART over Thunderbolt and USB4 but not USB 3.x (<https://eclecticlight.co/2024/04/09/which-external-drives-have-trim-and-smart-support/>, third-party), and smartmontools states that macOS lacks the SCSI pass-through needed for USB drives (<https://www.smartmontools.org/wiki/USB>). The workaround is a third-party kernel extension, which requires lowering the Mac's security policy. A Thunderbolt SATA enclosure such as OWC's ThunderBay 4 gives limited SMART access but still no TRIM (<https://eclecticlight.co/2023/04/14/will-your-new-ssd-support-trim-and-smart/>, third-party).
 - **Link speed and sleep.** Plugable found that its ASM1351 bridges link at 5Gb/s on Apple silicon (<https://kb.plugable.com/usb-drive-docks/usb-31-gen-2-to-sata-adapters-limited-to-5gbps-on-apple-m-series-macs->); ASM235CM behavior on Apple silicon is unknown. Unexpected disconnects after sleep are a recurring third-party report for USB storage on Apple silicon (<https://discussions.apple.com/thread/254322044>). For an unredundant pool member that is a data-integrity risk.
 
 ### SATA option 2, a commercial 2.5-inch enclosure (unselected)
@@ -250,8 +254,8 @@ Apple lists three rear Thunderbolt ports (Thunderbolt 4 on M6 and M4, Thunderbol
 
 ## Selections required before device-specific fit
 
-1. Mac generation and its actual port inventory: M6 (Thunderbolt 4) or M5 Pro (Thunderbolt 5) on the current model.
-2. NVMe enclosure generation. The owner intends two Express 1M2s: `OWCUS4EXP1M2` (40G) for a Thunderbolt 4 Mac, or `OWCUS4V2EXP1M2` (80G) only for a Thunderbolt 5 Mac and with a redrawn 1U holder.
+1. Mac generation. The owner intends the M5 Pro, with three rear Thunderbolt 5 ports, as the only server; not purchased.
+2. NVMe enclosure generation. The owner intends two Express 1M2s. On the intended Thunderbolt 5 Mac, `OWCUS4V2EXP1M2` (80G) roughly doubles throughput but needs a redrawn 1U holder; `OWCUS4EXP1M2` (40G) fits the original holder.
 3. SATA bridge. The cable form is preferred: `USB31C2SAT3` documents testing beyond 8TB; `USB31CSAT3CB` is thinner and in stock. The purchased unit must pass the 512-byte sector check on a scratch drive before the Samsung is connected.
 4. HDD model and packaging: a powered enclosure, or a tray with a commercial bridge supplying both 5V and 12V and its specified external supply rated for spin-up.
 5. Topology: direct to the Mac, or through a powered hub or dock, followed by a compatibility and power check on the real hardware.
@@ -271,13 +275,15 @@ The owner's three large SSDs form a single OpenZFS pool, `biggie`, built from th
 
 A 12 TB drive has about 10.91 TiB of raw capacity before filesystem overhead, leaving roughly 2.18 TiB above the recorded logical data. That arithmetic does not establish adequate backup capacity or safety: growth, migration format, filesystem overhead, verification and restore testing are unresolved. The future HDD is not already an external verified backup, and one copy is not sufficient protection for irreplaceable data.
 
+OpenZFS on macOS is a kernel extension. On Apple silicon, loading it requires booting into Recovery and setting the startup disk to Reduced Security with user-managed kernel extensions allowed (<https://support.apple.com/guide/security/securely-extending-the-kernel-sec8e454101b/web>; <https://openzfsonosx.org/forum/viewtopic.php?t=3911>). Keeping `biggie` on the Mac therefore lowers the security policy of the machine agents run on. The alternative is a migration to APFS, which cannot span the three drives without a concatenated set that keeps the current all-or-nothing failure mode; separate per-drive volumes would need the data to divide into groups that fit 7.27, 3.64 and 3.64 TiB.
+
 This project is mechanical CAD. It does not read, mount, write, repartition, reformat, detach, or otherwise touch any of the owner's disks, and no step in this repo should ever require doing so. Migration is a separate job that starts with a verified external backup.
 
 ## Unresolved items
 
 These block any claim of fit, thermal adequacy, or hardware specification:
 
-1. Mac mini generation. Not purchased. The 2026 M6/M5 Pro keeps the 2024 127 x 127 x 50 body; a later body change would invalidate the keepout.
+1. Mac mini. Not purchased; the owner intends an M5 Pro. The 2026 M6/M5 Pro keeps the 2024 127 x 127 x 50 body; a later body change would invalidate the keepout.
 2. Crucial P310 4TB thickness and sidedness. Not broken out in either flyer revision. This does not block either Express 1M2, which accept double-sided drives.
 3. Crucial P310 4TB weight and power. Not published by Crucial; third-party power figures exist only for smaller capacities.
 4. Samsung submodel. "Samsung 870 8TB" is most likely an 870 QVO `MZ-77Q8T0`, but the exact model code has to be read off the owner's drive.
@@ -294,6 +300,7 @@ These block any claim of fit, thermal adequacy, or hardware specification:
 15. Vibration isolation for a spinning drive. Not designed, not measured.
 16. Fastener schedule. Insert type and screw length require detailed alignment/head/penetration checks and printed coupon testing, not just the author's example hardware.
 17. macOS storage limits. A USB-attached SATA drive gets no TRIM and no native S.M.A.R.T. on macOS, whichever bridge is chosen.
+18. Filesystem on the Mac. Keeping ZFS requires Reduced Security for the OpenZFS kernel extension; moving to APFS requires a verified copy elsewhere first and a data split that fits the separate drives.
 
 ## Licensing and publication
 
